@@ -1,0 +1,69 @@
+body{
+    background-color: #123524;
+}
+
+.div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Вирівнювання по горизонталі */
+    align-items: center; /* Вирівнювання по вертикалі */
+    margin: 10% auto;
+}
+
+span{
+    font-size: 3rem;
+    font-family: "Open Sans-SemiBold", Helvetica, sans-serif;
+    color: white;
+    margin-bottom: 2%;
+}
+
+form {
+    display: flex; /* Використовуємо flexbox для вирівнювання елементів */
+    flex-direction: column; /* Елементи будуть розташовані вертикально */
+    align-items: center; /* Вирівнювання по центру */
+    background-color: #1b3d32; /* Темний зелений фон для контрасту */
+    padding: 20px; /* Внутрішній відступ форми */
+    border-radius: 20px; /* Закруглені кути */
+    width: 39%; /* Фіксована ширина форми */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Додаємо тінь */
+}
+
+form input[type="text"],
+form input[type="password"] {
+    width: 80%; /* Ширина поля вводу */
+    height: 45px; /* Висота поля вводу */
+    margin-bottom: 15px; /* Відступ між полями */
+    padding: 10px 20px; /* Внутрішній відступ тексту */
+    border-radius: 30px; /* Закруглені кути */
+    border: 1px solid #ccc; /* Легка обводка */
+    font-size: 1.2em; /* Розмір тексту */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легка тінь */
+}
+
+form input[type="text"]:focus,
+form input[type="password"]:focus {
+    outline: none; /* Вимикаємо стандартний фокус */
+    border: 1px solid #3cb371; /* Акцентований зелений колір */
+}
+
+form input[type="submit"] {
+    width: 40%; /* Кнопка має таку ж ширину, як і поля */
+    height: 50px;
+    border-radius: 25px;
+    background: #85A947; /* Градієнт фону */
+    color: black; /* Білий текст */
+    font-size: 18px; /* Розмір тексту */
+    font-weight: bold; /* Жирний шрифт */
+    border: none; /* Відсутність обводки */
+    cursor: pointer; /* Курсор руки */
+    transition: 0.3s;
+}
+
+form input[type="submit"]:hover {
+    background: #3E7B27;
+}
+
+.error-message {;
+    color: red;
+    font-family: "Open Sans-SemiBold", Helvetica, sans-serif;
+}
