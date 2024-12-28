@@ -1,16 +1,17 @@
-body{
+.log-in {
     background-color: #123524;
+    height: 100%;
 }
 
-.div{
+.log-in-container {
     display: flex;
     flex-direction: column;
     justify-content: center; /* Вирівнювання по горизонталі */
     align-items: center; /* Вирівнювання по вертикалі */
-    margin: 10% auto;
+    height: 100%;
 }
 
-span{
+span {
     font-size: 3rem;
     font-family: "Open Sans-SemiBold", Helvetica, sans-serif;
     color: white;
@@ -24,16 +25,15 @@ form {
     background-color: #1b3d32; /* Темний зелений фон для контрасту */
     padding: 20px; /* Внутрішній відступ форми */
     border-radius: 20px; /* Закруглені кути */
-    width: 39%; /* Фіксована ширина форми */
+    width: 30%; /* Фіксована ширина форми */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Додаємо тінь */
+    gap: 20px;
 }
 
 form input[type="text"],
 form input[type="password"] {
-    width: 80%; /* Ширина поля вводу */
-    height: 45px; /* Висота поля вводу */
-    margin-bottom: 15px; /* Відступ між полями */
-    padding: 10px 20px; /* Внутрішній відступ тексту */
+    width: 70%; /* Ширина поля вводу */
+    padding: 15px 20px; /* Внутрішній відступ тексту */
     border-radius: 30px; /* Закруглені кути */
     border: 1px solid #ccc; /* Легка обводка */
     font-size: 1.2em; /* Розмір тексту */
@@ -48,11 +48,11 @@ form input[type="password"]:focus {
 
 form input[type="submit"] {
     width: 40%; /* Кнопка має таку ж ширину, як і поля */
-    height: 50px;
+    padding: 10px 0;
     border-radius: 25px;
     background: #85A947; /* Градієнт фону */
     color: black; /* Білий текст */
-    font-size: 18px; /* Розмір тексту */
+    font-size: 1.2rem; /* Розмір тексту */
     font-weight: bold; /* Жирний шрифт */
     border: none; /* Відсутність обводки */
     cursor: pointer; /* Курсор руки */
@@ -61,9 +61,4 @@ form input[type="submit"] {
 
 form input[type="submit"]:hover {
     background: #3E7B27;
-}
-
-.error-message {;
-    color: red;
-    font-family: "Open Sans-SemiBold", Helvetica, sans-serif;
 }
