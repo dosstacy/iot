@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="/static/css/signUp.css"/>
+    <link rel="stylesheet" href="/static/css/main.css"/>
+    <link rel="icon" href="/static/images/logo.png" type="image/png">
+    <title>SmartPlantie</title>
+</head>
+<body>
+
+<div class="sign-up">
+    <div class="sign-up-container">
+        <span>We are glad to see you!</span>
+        <form action="/dots/signUp" method="post">
+            <input type="text" id="username" name="username" minlength="4" maxlength=15 placeholder="Enter username"
+                   required>
+            <input type="password" id="password" name="password" minlength="6" maxlength="15"
+                   placeholder="Enter password" required>
+            <input type="submit" value="Sign Up">
+        </form>
+    </div>
+</div>
+</body>
+</html>
