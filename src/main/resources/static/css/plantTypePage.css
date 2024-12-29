@@ -1,0 +1,60 @@
+.plants-page {
+    background-color: #123524;
+    height: 100%;
+}
+
+.plants-page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.plants {
+    display: flex;
+    margin: 10px;
+    gap: 100px;
+}
+
+.plants div {
+    position: relative;
+    text-align: center;
+}
+
+.plants img {
+    width: 220px;
+    object-fit: cover;
+}
+
+.plants button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 86%;
+    border: none;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.plants button:hover {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+}
+
+.plants div span {
+    display: block;
+    margin-top: 10px;
+    color: white;
+    font-size: 1rem;
+    font-family: "Open Sans", sans-serif;
+}
+
+.plants-main-span {
+    margin: 30px;
+    color: white;
+    font-weight: bold;
+    font-size: 2rem;
+}
