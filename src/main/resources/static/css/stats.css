@@ -1,0 +1,219 @@
+.stats-page {
+    background-color: #123524;
+    height: 100%;
+    width: 100%;
+}
+
+.stats-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.upper-logo-container {
+    background-color: #1b3d32;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* margin-bottom: 20px; */
+}
+
+.logo-name {
+    font-size: 1.5em;
+    color: white;
+    font-family: "Open Sans-SemiBold", Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.logo {
+    height: 85px;
+}
+
+.bottom-stats-container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    align-items: center;
+    height: -webkit-fill-available;
+    padding: 45px 0;
+    gap: 25px;
+}
+
+.plant-type {
+    height: -webkit-fill-available;
+    text-align: center;
+    color: white;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 75%;
+}
+
+.user-type {
+    font-size: 1.2em;
+    height: -webkit-fill-available;
+}
+
+.user-type-name {
+    font-size: 1.4em;
+    display: block;
+    /* margin: 10px; */
+}
+
+.change-plant {
+    background: none;
+    border: none;
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 0.9em;
+    padding: 0;
+    width: fit-content;
+}
+
+
+.plant-data {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 30px;
+}
+
+
+.temperature-data,
+.humidity-data,
+.light-data {
+    background-color: #1b3d32;
+    border-radius: 5px;
+    padding: 15px;
+    /* margin: 10px; */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    color: white;
+    width: 20%;
+}
+
+
+.temp-head {
+    font-size: 0.9em;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.temp-stats {
+    font-size: 2em;
+    margin-top: 10px;
+    display: block;
+    font-family: sans-serif;
+}
+
+
+.humidity-data {
+    position: relative;
+    font-family: sans-serif;
+}
+
+.humidity-head {
+    font-size: 0.9em;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.air-data,
+.soil-data {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    flex-direction: column;
+    font-family: sans-serif;
+}
+
+.air-stats,
+.soil-stats {
+    font-size: 1.2em;
+}
+
+.give-water {
+    /* width: 70%; */
+    padding: 15px 20px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    font-size: 1.2em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 15px auto 0;
+    display: block;
+    background-color: #145233;
+    color: white;
+    cursor: pointer;
+}
+
+/* Світло */
+.light-head {
+    font-size: 0.9em;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.light-stats {
+    font-size: 2em;
+    margin-top: 10px;
+    display: block;
+    font-family: sans-serif;
+}
+
+.light-slide-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 80%;
+    height: 4px;
+    background: white;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #123524;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #123524;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.plant-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.plant-description {
+    font-size: 0.9em;
+    height: -webkit-fill-available;
+    display: flex;
+    align-items: center;
+}

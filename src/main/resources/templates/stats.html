@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="/static/css/stats.css"/>
+    <link rel="stylesheet" href="/static/css/main.css"/>
+    <link rel="icon" href="/static/images/logo.png" type="image/png">
+    <title>SmartPlantie</title>
+</head>
+<body>
+
+<div class="stats-page" style="background-image:url('/static/images/welcome_page.png');">
+    <div class="stats-page-container">
+        <div class="upper-logo-container">
+            <img class="logo" src="/static/images/logo.png">
+            <span class="logo-name">SmartPlantie</span>
+        </div>
+        <div class="bottom-stats-container">
+            <div class="plant-type">
+                <div class="plant-info"><span class="user-type">Your plant type: </span>
+                    <span class="user-type-name"> Dry-loving plant<!--тут треба якось взяти те, що вибрали--> </span>
+                    <button class="change-plant">(you can change it here)</button>
+                </div>
+                <span class="plant-description">TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT </span>
+            </div>
+
+            <div class="plant-data">
+                <script src="mqtt.js"></script>
+                <div class="temperature-data">
+                    <span class="temp-head">Temperature</span>
+                    <span class="temp-stats">0°C</span> <!-- брати дані-->
+                </div>
+
+                <div class="humidity-data">
+                    <span class="humidity-head">Humidity</span>
+                    <div class="air-data">
+                        <span class="air-head">Air: </span>
+                        <span class="air-stats">0%</span> <!-- брати дані-->
+                    </div>
+                    <div class="soil-data">
+                        <span class="soil-head">Soil: </span>
+                        <span class="soil-stats">0%</span> <!-- брати дані-->
+                        <button class="give-water">Water the plant!</button>
+                    </div>
+                </div>
+
+                <div class="light-data">
+                    <span class="light-head">Light</span>
+                    <span class="light-stats">0%</span> <!-- брати дані-->
+
+                    <div class="light-slide-container">
+                        <input type="range" min="0" max="100" value="0" class="slider" id="myRange">
+                    </div>
+                    <script type="text/javascript">
+                        document.querySelector(".slider").oninput = function () {
+                            const lightLevel = this.value;
+                            document.querySelector(".light-stats").textContent = `${lightLevel}%`;
+                            console.log("Light level adjusted to:", lightLevel);
+                        };
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
