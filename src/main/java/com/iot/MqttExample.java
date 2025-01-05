@@ -7,7 +7,6 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class MqttExample {
@@ -17,17 +16,21 @@ public class MqttExample {
     private static final String MQTT_USERNAME = "maker";
     private static final String MQTT_PASSWORD = "mother.mqtt.password";
 
-    private static final String TOPIC = "services/alert/ad408gh/status";
+    private static final String TEMP_TOPIC = "kpi/solaris/temperature/ad408gh";
+    private static final String HUM_AIR_TOPIC = "kpi/solaris/humidity/air/ad408gh";
+    private static final String HUM_SOIL_TOPIC = "kpi/solaris/humidity/soil/ad408gh";
+    private static final String LIGHT_TOPIC = "kpi/solaris/light/ad408gh";
+
+    private static final String CMD_LIGHT_TOPIC = "kpi/solaris/light/ad408gh/cmd";
+    private static final String CMD_HUM_TOPIC = "kpi/solaris/humidity/ad408gh/cmd";
 
 //    private void publishMqtt(MqttClient client, String broker, String topic, String content, int qos) {
 //        try {
-//            // Налаштування опцій підключення
 //            MqttConnectOptions connOpts = new MqttConnectOptions();
 //            connOpts.setCleanSession(false);
-//            connOpts.setUserName("maker");
-//            connOpts.setPassword("mother.mqtt.password".toCharArray());
+//            connOpts.setUserName(MQTT_USERNAME);
+//            connOpts.setPassword(MQTT_PASSWORD.toCharArray());
 //
-//            // Підключення
 //            System.out.println("Connecting to broker: " + broker);
 //            client.connect(connOpts);
 //            System.out.println("Connected");
@@ -47,7 +50,7 @@ public class MqttExample {
 //        }
 //    }
 
-    private void publishMqtt(MqttClient client, String broker, String topic, Map<String, Object> data, int qos) {
+    private void publishMqtt(MqttClient client, Map<String, Object> data, int qos, String topic) {
         try {
             MqttConnectOptions connOpts = new MqttConnectOptions();
             connOpts.setCleanSession(false);
@@ -56,7 +59,6 @@ public class MqttExample {
 
             client.connect(connOpts);
 
-            // Перетворення даних у JSON
             String payload = new Gson().toJson(data);
             MqttMessage message = new MqttMessage(payload.getBytes());
             message.setQos(qos);
@@ -65,7 +67,7 @@ public class MqttExample {
 
             client.disconnect();
         } catch (MqttException e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
         }
     }
 
@@ -101,13 +103,13 @@ public class MqttExample {
             throw new RuntimeException(e);
         }
         MqttExample example = new MqttExample();
-        //example.receiveMqtt(client, MQTT_USERNAME, MQTT_PASSWORD, TOPIC);
-        Map<String, Object> data = new HashMap<>();
-        data.put("temperature", 21);
-        data.put("airHumidity", 34);
-        data.put("soilHumidity", 10);
-        data.put("lightLevel", 68);
-
-        example.publishMqtt(client, MQTT_BROKER_URL, TOPIC, data, qos);
+        example.receiveMqtt(client, MQTT_USERNAME, MQTT_PASSWORD, TEMP_TOPIC);
+//        Map<String, Object> data = new HashMap<>();
+//        data.put("temperature", 21);
+//        data.put("airHumidity", 34);
+//        data.put("soilHumidity", 10);
+//        data.put("lightLevel", 68);
+//
+//        example.publishMqtt(client, data, qos, CMD_LIGHT_TOPIC);
     }
 }
