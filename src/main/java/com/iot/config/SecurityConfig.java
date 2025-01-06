@@ -2,11 +2,9 @@ package com.iot.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -15,17 +13,23 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable) // Вимикаємо CSRF для REST API
-//                .authorizeHttpRequests(auth -> auth
-//                        .anyRequest().authenticated() // Всі запити вимагають автентифікації
-//                )
-                .httpBasic(Customizer.withDefaults()) // Використання HTTP Basic Auth
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Stateless сесії
-                );
+        return http
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/smartPlantie", "/smartPlantie/signUp", "/smartPlantie/logIn", "/css/**", "/images/**").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .formLogin(form -> form
+                        .loginPage("/smartPlantie/logIn")
+                        .loginProcessingUrl("/smartPlantie/logIn")
+                        .defaultSuccessUrl("/smartPlantie/plantType")
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/smartPlantie")
+                )
+                .build();
 
-        return http.build();
     }
 }
 

@@ -2,9 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="">
 <head>
     <meta charset="utf-8"/>
-    <link rel="stylesheet" href="/static/css/logIn.css"/>
-    <link rel="stylesheet" href="/static/css/main.css"/>
-    <link rel="icon" href="/static/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="/css/logIn.css"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="icon" href="/images/logo.png" type="image/png">
     <title>SmartPlantie</title>
 </head>
 <body>
@@ -12,7 +12,7 @@
 <div class="log-in">
     <div class="log-in-container">
         <span>Welcome back!</span>
-        <form action="/dots/logIn" method="post">
+        <form action="/smartPlantie/logIn" method="post">
             <input type="text" id="username" name="username" placeholder="Enter username" maxlength=15 required>
             <input type="password" id="password" name="password" placeholder="Enter password" maxlength="15" required>
             <input type="submit" value="Log In">

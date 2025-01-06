@@ -15,10 +15,15 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public User getById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new InvalidUserException("Cannot get user with id " + id));
-    }
+//    public User getById(Long id) {
+//        return userRepository.findById(id)
+//                .orElseThrow(() -> new InvalidUserException("Cannot get user with id " + id));
+//    }
+//
+//    public User getByUsername(String username) {
+//        return userRepository.findByUsername(username)
+//                .orElseThrow(() -> new InvalidUserException("Cannot get user with name " + username));
+//    }
 
     public User save(User entity) {
         isUserExist(entity.getUsername());
