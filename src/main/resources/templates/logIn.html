@@ -11,7 +11,8 @@
 
 <div class="log-in">
     <div class="log-in-container">
-        <span>Welcome back!</span>
+        <span th:if="${param.registered}">Your registration is successful! Please log in</span>
+        <span th:unless="${param.registered}">Welcome back!</span>
         <form action="/smartPlantie/logIn" method="post">
             <input type="text" id="username" name="username" placeholder="Enter username" maxlength=15 required>
             <input type="password" id="password" name="password" placeholder="Enter password" maxlength="15" required>

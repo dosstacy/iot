@@ -48,7 +48,7 @@ public class UserController {
             user.setUsername(username);
             user.setPassword(password);
             userService.save(user);
-            return "redirect:/smartPlantie/logIn";
+            return "redirect:/smartPlantie/logIn?registered=true";
         } catch (Exception e) {
             e.printStackTrace(System.out);
             return "signUp";
