@@ -1,11 +1,11 @@
 package com.iot.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+import java.util.List;
+
+@Data
 @Entity
 @Table(name = "users")
 public class User {
@@ -16,4 +16,7 @@ public class User {
     @Column(unique = true)
     private String username;
     private String password;
+    @OneToMany(mappedBy = "owner")
+    private List<Plant> plants;
+
 }
