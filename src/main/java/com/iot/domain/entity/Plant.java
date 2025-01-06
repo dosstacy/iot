@@ -1,5 +1,6 @@
 package com.iot.domain.entity;
 
+import com.iot.domain.enums.PlantType;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,7 +14,7 @@ public class Plant {
     private Long id;
     @Column(unique = true)
     private String name;
-    private String type;
+    private PlantType type;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User owner;
