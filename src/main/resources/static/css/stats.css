@@ -13,13 +13,12 @@
 }
 
 .upper-logo-container {
-    background-color: #1b3d32;
+    background-color: #123524;
     width: 100%;
     height: fit-content;
     display: flex;
     align-items: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    /* margin-bottom: 20px; */
 }
 
 .logo-name {
@@ -90,10 +89,9 @@
 .temperature-data,
 .humidity-data,
 .light-data {
-    background-color: #1b3d32;
+    background-color: #123524;
     border-radius: 5px;
     padding: 15px;
-    /* margin: 10px; */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     color: white;
     width: 20%;
@@ -140,7 +138,6 @@
 }
 
 .give-water {
-    /* width: 70%; */
     padding: 15px 20px;
     border-radius: 30px;
     border: 1px solid #ccc;
@@ -153,7 +150,6 @@
     cursor: pointer;
 }
 
-/* Світло */
 .light-head {
     font-size: 0.9em;
     font-weight: bold;
@@ -190,7 +186,7 @@
     appearance: none;
     width: 20px;
     height: 20px;
-    background: #123524;
+    background: #145233;
     border-radius: 50%;
     cursor: pointer;
 }
@@ -198,7 +194,7 @@
 .slider::-moz-range-thumb {
     width: 20px;
     height: 20px;
-    background: #123524;
+    background: #145233;
     border-radius: 50%;
     cursor: pointer;
 }
