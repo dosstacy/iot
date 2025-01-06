@@ -6,56 +6,55 @@
 .log-in-container {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Вирівнювання по горизонталі */
-    align-items: center; /* Вирівнювання по вертикалі */
+    justify-content: center;
+    align-items: center;
     height: 100%;
 }
 
 span {
     font-size: 3rem;
-    font-family: "Open Sans-SemiBold", Helvetica, sans-serif;
     color: white;
     margin-bottom: 2%;
 }
 
 form {
-    display: flex; /* Використовуємо flexbox для вирівнювання елементів */
-    flex-direction: column; /* Елементи будуть розташовані вертикально */
-    align-items: center; /* Вирівнювання по центру */
-    background-color: #1b3d32; /* Темний зелений фон для контрасту */
-    padding: 20px; /* Внутрішній відступ форми */
-    border-radius: 20px; /* Закруглені кути */
-    width: 30%; /* Фіксована ширина форми */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Додаємо тінь */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1b3d32;
+    padding: 20px;
+    border-radius: 20px;
+    width: 30%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     gap: 20px;
 }
 
 form input[type="text"],
 form input[type="password"] {
-    width: 70%; /* Ширина поля вводу */
-    padding: 15px 20px; /* Внутрішній відступ тексту */
-    border-radius: 30px; /* Закруглені кути */
-    border: 1px solid #ccc; /* Легка обводка */
-    font-size: 1.2em; /* Розмір тексту */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легка тінь */
+    width: 70%;
+    padding: 15px 20px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    font-size: 1.2em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 form input[type="text"]:focus,
 form input[type="password"]:focus {
-    outline: none; /* Вимикаємо стандартний фокус */
-    border: 1px solid #3cb371; /* Акцентований зелений колір */
+    outline: none;
+    border: 1px solid #3cb371;
 }
 
 form input[type="submit"] {
-    width: 40%; /* Кнопка має таку ж ширину, як і поля */
+    width: 40%;
     padding: 10px 0;
     border-radius: 25px;
-    background: #85A947; /* Градієнт фону */
-    color: black; /* Білий текст */
-    font-size: 1.2rem; /* Розмір тексту */
-    font-weight: bold; /* Жирний шрифт */
-    border: none; /* Відсутність обводки */
-    cursor: pointer; /* Курсор руки */
+    background: #85A947;
+    color: black;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
     transition: 0.3s;
 }
 
