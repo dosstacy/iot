@@ -17,9 +17,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable) // Вимикаємо CSRF для REST API
-                .authorizeHttpRequests(auth -> auth
-                        .anyRequest().authenticated() // Всі запити вимагають автентифікації
-                )
+//                .authorizeHttpRequests(auth -> auth
+//                        .anyRequest().authenticated() // Всі запити вимагають автентифікації
+//                )
                 .httpBasic(Customizer.withDefaults()) // Використання HTTP Basic Auth
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Stateless сесії

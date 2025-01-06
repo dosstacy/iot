@@ -3,13 +3,19 @@ package com.iot.controllers;
 import com.iot.domain.entity.User;
 import com.iot.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/smartPlantie")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+
+    @GetMapping
+    public String welcomePage(){
+        return "welcomePage";
+    }
 
     @PostMapping("/login")
     public void login(@RequestBody User user) {
