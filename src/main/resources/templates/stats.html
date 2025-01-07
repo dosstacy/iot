@@ -10,7 +10,6 @@
     <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
     <script type="text/javascript" src="/js/stats.js"></script>
     <script src="/js/mqtt.js"></script>
-
 </head>
 <body>
 
@@ -25,7 +24,7 @@
                 <div class="plant-info"><span class="user-type">Your plant type: </span>
                     <span class="user-type-name"> Dry-loving plant
                         <!--тут треба якось взяти те, що вибрали--> </span>
-                    <button class="change-plant">(you can change it here)</button>
+                    <button class="open-modal-btn">Change</button>
                 </div>
                 <span class="plant-description">TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT </span>
             </div>
@@ -56,17 +55,84 @@
                     <div class="light-slide-container">
                         <input type="range" min="0" max="100" value="0" class="slider" id="myRange">
                     </div>
-                    <script type="text/javascript">
-                        document.querySelector(".slider").oninput = function () {
-                            const lightLevel = this.value;
-                            document.querySelector(".light-stats").textContent = `${lightLevel}%`;
-                            console.log("Light level adjusted to:", lightLevel);
-                        };
-                    </script>
+                </div>
+
+                <div class="modal-overlay active" id="modal">
+                    <div class="modal">
+                        <button class="close-modal-btn" id="close-modal">Close</button>
+                        <table class="change-plant-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Kokos</td>
+                                    <td>Rose</td>
+                                    <td>
+                                        <button class="change-plant-btn">Select</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Kokos</td>
+                                    <td>Rose</td>
+                                    <td>
+                                        <button class="change-plant-btn">Select</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Kokos</td>
+                                    <td>Rose</td>
+                                    <td>
+                                        <button class="change-plant-btn">Select</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Kokos</td>
+                                    <td>Rose</td>
+                                    <td>
+                                        <button class="change-plant-btn">Select</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    document.querySelector(".slider").oninput = function () {
+        const lightLevel = this.value;
+        document.querySelector(".light-stats").textContent = `${lightLevel}%`;
+        console.log("Light level adjusted to:", lightLevel);
+    };
+
+
+    const modal = document.getElementById('modal');
+    const openModalBtn = document.querySelector('.open-modal-btn');
+    const closeModalBtn = document.getElementById('close-modal');
+
+    modal.classList.remove('active');
+
+    openModalBtn.addEventListener('click', () => {
+        modal.classList.add('active');
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+        }
+    });
+</script>
 </body>
 </html>
