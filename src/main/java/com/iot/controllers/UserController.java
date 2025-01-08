@@ -20,12 +20,12 @@ public class UserController {
         return "welcomePage";
     }
 
-    @GetMapping("/logIn")
+    @GetMapping("/login")
     public String logIn() {
         return "logIn";
     }
 
-    @PostMapping("/logIn")
+    @PostMapping("/login")
     public String login(@RequestParam String username, @RequestParam String password) {
         try {
             userService.authenticate(username, password);
@@ -36,7 +36,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/signUp")
+    @GetMapping("/signup")
     public String signUp() {
         return "signUp";
     }
@@ -48,7 +48,7 @@ public class UserController {
             user.setUsername(username);
             user.setPassword(password);
             userService.save(user);
-            return "redirect:/smartPlantie/logIn?registered=true";
+            return "redirect:/smartPlantie/login?registered=true";
         } catch (Exception e) {
             e.printStackTrace(System.out);
             return "signUp";
