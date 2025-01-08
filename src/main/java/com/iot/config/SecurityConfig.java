@@ -16,13 +16,12 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/smartPlantie", "/smartPlantie/signUp", "/smartPlantie/logIn", "/css/**", "/images/**").permitAll()
+                        .requestMatchers("/smartPlantie", "/smartPlantie/signup", "/smartPlantie/login", "/css/**", "/images/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/smartPlantie/logIn")
-                        .loginProcessingUrl("/smartPlantie/logIn")
-                        .defaultSuccessUrl("/smartPlantie/plantType")
+                        .loginPage("/smartPlantie/login")
+                        .defaultSuccessUrl("/smartPlantie/plantType", true)
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
