@@ -22,10 +22,10 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/smartPlantie/logIn")
                         .loginProcessingUrl("/smartPlantie/logIn")
-                        .defaultSuccessUrl("/smartPlantie/plantType")
+                        .defaultSuccessUrl("/smartPlantie/stats")
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/logout")
+                        .logoutUrl("/smartPlantie/logout")
                         .logoutSuccessUrl("/smartPlantie")
                 )
                 .build();

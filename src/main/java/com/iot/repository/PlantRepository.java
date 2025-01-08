@@ -7,5 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface PlantRepository extends CrudRepository<Plant, Long> {
+    Optional<Plant> findByName(String name);
     Optional<Plant> findByOwner(User owner);
 }
