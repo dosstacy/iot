@@ -22,10 +22,10 @@
         <div class="bottom-stats-container">
             <div class="plant-type">
                 <div class="plant-info"><span class="user-type">Your plant: </span>
-                    <span class="user-type-name"> Dry-loving plant (dry-loving)</span>
+                    <span class="user-type-name"> </span>
                     <button class="open-modal-btn">Change</button>
                 </div>
-                <span class="plant-description">TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT </span>
+                <span class="plant-description"></span>
             </div>
 
             <div class="plant-data">
@@ -141,10 +141,13 @@
 
             if(plants.plantType === "DRY_LOVER"){
                 plant = "dry-lover plant"
+                document.querySelector(".plant-description").textContent = `Dry-loving plants, such as cacti or succulents, require minimal water. They should be provided with direct sunlight and watering should be limited, allowing the soil to dry completely between waterings. Temperatures between 20-30°C are optimal. They can also withstand high temperatures, so it is important to ensure good drainage to avoid water stagnation.`
             }else if(plants.plantType === "MEDIUM_LOVER"){
                 plant = "plant that like medium humidity"
+                document.querySelector(".plant-description").textContent = `Medium-loving plants, such as ficus or gerberas, need moderate watering and can withstand periods of dryness as well as wetter conditions. They require moderate light and do not like direct sun, but should not be in places that are too dark. The optimal temperature for these plants ranges from 15 to 25°C. Watering should be regular, but the soil should have time to dry out between waterings to avoid root rot.`
             }else if(plants.plantType === "WATER_LOVER"){
                 plant = "water-loving plant"
+                document.querySelector(".plant-description").textContent = `Water-loving plants such as ferns or tropical flowers need regular watering and high humidity. They like warmth and grow best at temperatures between 18 and 25°C. Since these plants do not tolerate drying out, it is important to keep the soil and the environment constantly moist, for example by using humidifiers.`
             }
 
             document.querySelector(".user-type-name").textContent = `${plants.plantName} (${plant})`
