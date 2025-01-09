@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -51,9 +52,15 @@ public class PlantService {
         plantRepository.deleteById(id);
     }
 
-    public PlantInfoDto getPlantInfo(String name) {
-        return plantRepository.findByName(name)
+    public List<PlantInfoDto> getAllPlantsInfo(User user) {
+        return plantRepository.findByOwner(user)
+                .stream()
                 .map(plant -> modelMapper.map(plant, PlantInfoDto.class))
-                .orElseThrow(() -> new PlantsException("Error finding plant by name: " + name));
+                .toList();
+    }
+
+    public Optional<PlantInfoDto> findFirstByOwnerUsername(String username) {
+        return plantRepository.findFirstByOwner_Username(username)
+                .map(plant -> modelMapper.map(plant, PlantInfoDto.class));
     }
 }

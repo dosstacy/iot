@@ -131,5 +131,31 @@
         }
     });
 </script>
+
+<script>
+    async function fetchPlants() {
+        try {
+            const response = await fetch('/api/plant/info');
+            const plants = await response.json();
+            let plant;
+
+            if(plants.plantType === "DRY_LOVER"){
+                plant = "dry-lover plant"
+            }else if(plants.plantType === "MEDIUM_LOVER"){
+                plant = "plant that like medium humidity"
+            }else if(plants.plantType === "WATER_LOVER"){
+                plant = "water-loving plant"
+            }
+
+            document.querySelector(".user-type-name").textContent = `${plants.plantName} (${plant})`
+        } catch (error) {
+            console.error('Error fetching plants:', error);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        fetchPlants();
+    });
+</script>
 </body>
 </html>

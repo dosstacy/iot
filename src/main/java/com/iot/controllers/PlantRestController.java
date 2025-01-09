@@ -1,25 +1,26 @@
 package com.iot.controllers;
 
-import com.iot.domain.entity.User;
 import com.iot.dto.PlantInfoDto;
 import com.iot.services.PlantService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/plant")
 public class PlantRestController {
-    private PlantService plantService;
+    private final PlantService plantService;
 
     @GetMapping("/info")
-    public PlantInfoDto getPlantInfo(@RequestParam String name) {
-        return plantService.getPlantInfo(name);
+    public Optional<PlantInfoDto> findFirstByOwner() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        return plantService.findFirstByOwnerUsername(username);
     }
 }
