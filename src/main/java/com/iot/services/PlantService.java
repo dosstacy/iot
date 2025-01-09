@@ -1,17 +1,16 @@
 package com.iot.services;
 
-import com.iot.dto.PlantInfoDto;
 import com.iot.domain.entity.Plant;
 import com.iot.domain.entity.User;
 import com.iot.domain.exceptions.InvalidUserException;
 import com.iot.domain.exceptions.PlantsException;
+import com.iot.dto.PlantInfoDto;
 import com.iot.repository.PlantRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -52,7 +51,7 @@ public class PlantService {
         plantRepository.deleteById(id);
     }
 
-    public PlantInfoDto getPlantInfo(String name){
+    public PlantInfoDto getPlantInfo(String name) {
         return plantRepository.findByName(name)
                 .map(plant -> modelMapper.map(plant, PlantInfoDto.class))
                 .orElseThrow(() -> new PlantsException("Error finding plant by name: " + name));
