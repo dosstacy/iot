@@ -1,4 +1,4 @@
-package com.iot;
+package com.iot.dto;
 
 import com.iot.domain.enums.PlantType;
 import lombok.Data;

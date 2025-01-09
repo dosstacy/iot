@@ -1,19 +1,23 @@
 package com.iot.services;
 
+import com.iot.dto.PlantInfoDto;
 import com.iot.domain.entity.Plant;
 import com.iot.domain.entity.User;
 import com.iot.domain.exceptions.InvalidUserException;
 import com.iot.domain.exceptions.PlantsException;
 import com.iot.repository.PlantRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class PlantService {
     private final PlantRepository plantRepository;
+    private final ModelMapper modelMapper;
 
     public Plant getById(Long id) {
         return plantRepository.findById(id)
@@ -25,18 +29,18 @@ public class PlantService {
                 .orElseThrow(() -> new PlantsException("Cannot get plant with name " + name));
     }
 
-    public Optional<Plant> findByOwner(User user) {
+    public List<Plant> findByOwner(User user) {
         try {
             return plantRepository.findByOwner(user);
         } catch (Exception e) {
-            return Optional.empty();
+            throw new PlantsException("Cannot get plants with owner " + user.getUsername());
         }
     }
 
     public void save(Plant plant) {
         try {
             plantRepository.save(plant);
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new PlantsException("Cannot save plant " + plant);
         }
     }
@@ -46,5 +50,11 @@ public class PlantService {
             throw new InvalidUserException("Cannot delete plant with id " + id);
         }
         plantRepository.deleteById(id);
+    }
+
+    public PlantInfoDto getPlantInfo(String name){
+        return plantRepository.findByName(name)
+                .map(plant -> modelMapper.map(plant, PlantInfoDto.class))
+                .orElseThrow(() -> new PlantsException("Error finding plant by name: " + name));
     }
 }

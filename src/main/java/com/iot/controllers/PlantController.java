@@ -15,13 +15,13 @@ import java.util.Optional;
 public class PlantController {
     private final PlantService plantService;
 
-    @GetMapping("/plants")
-    public Optional<Plant> getPlants(@RequestBody User user) {
-        try {
-            return plantService.findByOwner(user);
-        } catch (Exception e) {
-            e.printStackTrace(System.out);
-            return Optional.empty();
-        }
-    }
+//    @GetMapping("/plants")
+//    public Optional<Plant> getPlants(@RequestBody User user) {
+//        try {
+//            return plantService.findByOwner(user);
+//        } catch (Exception e) {
+//            e.printStackTrace(System.out);
+//            return Optional.empty();
+//        }
+//    }
 }
