@@ -53,7 +53,7 @@
                     <span class="light-stats">0 %</span>
 
                     <div class="light-slide-container">
-                        <input type="range" min="0" max="100" value="0" class="slider" id="myRange">
+                        <input type="range" min="0" max="100" value="0" class="slider" id="myRange" onclick="lightAdjust(lightLevel)">
                     </div>
                 </div>
 
@@ -105,11 +105,11 @@
 </div>
 
 <script type="text/javascript">
+    let lightLevel;
     document.querySelector(".slider").oninput = function () {
-        const lightLevel = this.value;
+        lightLevel = this.value;
         document.querySelector(".light-stats").textContent = `${lightLevel}%`;
     };
-
 
     const modal = document.getElementById('modal');
     const openModalBtn = document.querySelector('.open-modal-btn');
