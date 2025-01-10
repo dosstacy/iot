@@ -8,11 +8,11 @@
     <title>SmartPlantie</title>
 
     <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
-    <script src="/js/stats.js" type="text/javascript"></script>
+    <script src="/js/stats.js"></script>
     <script src="/js/mqtt.js"></script>
 </head>
 <body>
-
+<script>getAllDataFromMother()</script>
 <div class="stats-page" style="background-image:url('/images/background.png')">
     <div class="stats-page-container">
         <div class="upper-logo-container">
@@ -43,7 +43,7 @@
                     <div class="soil-data">
                         <span class="soil-head">Soil: </span>
                         <span class="soil-stats">0 %</span>
-                        <button class="give-water">Water the plant!</button>
+                        <button class="give-water" onclick="waterPant()">Water the plant!</button>
                     </div>
                 </div>
 
@@ -159,6 +159,18 @@
     document.addEventListener('DOMContentLoaded', () => {
         fetchPlants();
     });
+</script>
+
+<script>
+    function waterPlant(){
+        const topics = {
+            soilHumidity: 'kpi/solaris/humidity/ad408gh/cmd',
+            light: 'kpi/solaris/light/ad408gh/cmd'
+        };
+        let client = connectToMother(topics);
+
+
+    }
 </script>
 </body>
 </html>
