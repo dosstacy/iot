@@ -60,7 +60,11 @@ public class PlantService {
     }
 
     public Optional<PlantInfoDto> findFirstByOwnerUsername(String username) {
-        return plantRepository.findFirstByOwner_Username(username)
+        return plantRepository.findFirstByOwnerUsername(username)
                 .map(plant -> modelMapper.map(plant, PlantInfoDto.class));
+    }
+
+    public boolean userHasPlants(String username) {
+        return plantRepository.existsByOwnerUsername(username);
     }
 }

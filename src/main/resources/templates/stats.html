@@ -114,6 +114,11 @@
             const plants = await response.json();
             let plant;
 
+            if (!plants) {
+                console.error('Plant data is null or undefined.');
+                window.location.href = '/plantType';
+            }
+
             if (plants.plantType === "DRY_LOVER") {
                 plant = "dry-lover plant"
                 document.querySelector(".plant-description").textContent = `Dry-loving plants, such as cacti or succulents, require minimal water. They should be provided with direct sunlight and watering should be limited, allowing the soil to dry completely between waterings. Temperatures between 20-30°C are optimal. They can also withstand high temperatures, so it is important to ensure good drainage to avoid water stagnation.`
@@ -145,7 +150,6 @@
             const container = document.getElementById('change-plant-container');
             container.innerHTML = '';
 
-            // Генерація HTML для кожної рослини
             plants.forEach(plant => {
                 const plantElement = document.createElement('div');
                 plantElement.className = 'change-plant-data-container';

@@ -14,5 +14,7 @@ public interface PlantRepository extends CrudRepository<Plant, Long> {
 
     List<Plant> findAllByOwnerUsername(String username);
 
-    Optional<Plant> findFirstByOwner_Username(String username);
+    Optional<Plant> findFirstByOwnerUsername(String username);
+
+    boolean existsByOwnerUsername(String username);
 }

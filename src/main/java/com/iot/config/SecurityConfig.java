@@ -1,5 +1,7 @@
 package com.iot.config;
 
+import com.iot.utils.CustomAuthenticationSuccessHandler;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,7 +11,10 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final CustomAuthenticationSuccessHandler successHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -21,8 +26,9 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form
                         .loginPage("/smartPlantie/login")
-                        .defaultSuccessUrl("/smartPlantie/stats", true)
+                        .successHandler(successHandler)
                 )
+
                 .logout(logout -> logout
                         .logoutUrl("/smartPlantie/logout")
                         .logoutSuccessUrl("/smartPlantie")

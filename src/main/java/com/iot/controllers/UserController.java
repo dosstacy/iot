@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+//TODO: 1. warning, якщо при signup username вже буде існувати; 2. redirect, якщо в бд в user не буде plants
+
 @Controller
 @RequestMapping("/smartPlantie")
 @RequiredArgsConstructor
