@@ -63,40 +63,14 @@
                             <svg width="45px" height="45px" viewBox="0 0 23.5 23.5" fill="none"
                                  xmlns="http://www.w3.org/2000/svg" stroke="#ff0000">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                <g id="SVGRepo_trace#ff0000Carrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                                 <g id="SVGRepo_iconCarrier">
                                     <path d="M19.207 6.207a1 1 0 0 0-1.414-1.414L12 10.586 6.207 4.793a1 1 0 0 0-1.414 1.414L10.586 12l-5.793 5.793a1 1 0 1 0 1.414 1.414L12 13.414l5.793 5.793a1 1 0 0 0 1.414-1.414L13.414 12l5.793-5.793z"
                                           fill="#ff0000" fill-rule="evenodd" clip-rule="evenodd"></path>
                                 </g>
                             </svg>
                         </button>
-                        <div class="change-plant-container">
-                            <div class="change-plant-data-container">
-                                <span class="change-plant-data">Kokos</span>
-                                <span class="change-plant-data">Dry-loving</span>
-                                <button class="change-plant-btn">Select</button>
-                            </div>
-                            <div class="change-plant-data-container">
-                                <span class="change-plant-data">Kokos</span>
-                                <span class="change-plant-data">Water-loving</span>
-                                <button class="change-plant-btn">Select</button>
-                            </div>
-                            <div class="change-plant-data-container">
-                                <span class="change-plant-data">Kokos</span>
-                                <span class="change-plant-data">Medium water-loving</span>
-                                <button class="change-plant-btn">Select</button>
-                            </div>
-                            <div class="change-plant-data-container">
-                                <span class="change-plant-data">Kokos</span>
-                                <span class="change-plant-data">Dry-loving</span>
-                                <button class="change-plant-btn">Select</button>
-                            </div>
-                            <div class="change-plant-data-container">
-                                <span class="change-plant-data">Kokos</span>
-                                <span class="change-plant-data">Water-loving</span>
-                                <button class="change-plant-btn">Select</button>
-                            </div>
-                        </div>
+                        <div id="change-plant-container" class="change-plant-container"></div>
                     </div>
                 </div>
             </div>
@@ -117,8 +91,9 @@
 
     modal.classList.remove('active');
 
-    openModalBtn.addEventListener('click', () => {
+    openModalBtn.addEventListener('click', async () => {
         modal.classList.add('active');
+        await fetchPlants();
     });
 
     closeModalBtn.addEventListener('click', () => {
@@ -133,9 +108,9 @@
 </script>
 
 <script>
-    async function fetchPlants() {
+    async function fetchPlant() {
         try {
-            const response = await fetch('/api/plant/info');
+            const response = await fetch('/api/plants/info');
             const plants = await response.json();
             let plant;
 
@@ -152,13 +127,42 @@
 
             document.querySelector(".user-type-name").textContent = `${plants.plantName} (${plant})`
         } catch (error) {
-            console.error('Error fetching plants:', error);
+            console.error('Error fetching plant:', error);
         }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        fetchPlants();
+        fetchPlant();
     });
+
+
+
+    async function fetchPlants() {
+        try {
+            const response = await fetch('/api/plants');
+            const plants = await response.json();
+
+            const container = document.getElementById('change-plant-container');
+            container.innerHTML = '';
+
+            // Генерація HTML для кожної рослини
+            plants.forEach(plant => {
+                const plantElement = document.createElement('div');
+                plantElement.className = 'change-plant-data-container';
+
+                plantElement.innerHTML = `
+                    <span class="change-plant-data">${plant.plantName}</span>
+                    <span class="change-plant-data">${plant.plantType}</span>
+                    <button class="change-plant-btn">Select</button>
+                `;
+
+                container.appendChild(plantElement);
+            });
+        } catch (error) {
+            console.error('Error fetching plants:', error.message);
+        }
+    }
+
 </script>
 </body>
 </html>

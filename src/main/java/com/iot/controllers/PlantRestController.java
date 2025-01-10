@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/plant")
+@RequestMapping("/api/plants")
 public class PlantRestController {
     private final PlantService plantService;
 
@@ -22,5 +23,12 @@ public class PlantRestController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         return plantService.findFirstByOwnerUsername(username);
+    }
+
+    @GetMapping()
+    public List<PlantInfoDto> findAll() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        return plantService.getAllPlants(username);
     }
 }

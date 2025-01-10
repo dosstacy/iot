@@ -52,8 +52,8 @@ public class PlantService {
         plantRepository.deleteById(id);
     }
 
-    public List<PlantInfoDto> getAllPlantsInfo(User user) {
-        return plantRepository.findByOwner(user)
+    public List<PlantInfoDto> getAllPlants(String username) {
+        return plantRepository.findAllByOwnerUsername(username)
                 .stream()
                 .map(plant -> modelMapper.map(plant, PlantInfoDto.class))
                 .toList();
