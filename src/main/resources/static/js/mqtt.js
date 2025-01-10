@@ -16,6 +16,14 @@ function connectToMother(topics){
         });
     });
 
+    client.on('error', (err) => {
+        console.error('Connection error:', err);
+    });
+
+    client.on('close', () => {
+        console.log('Connection closed');
+    });
+
     return client;
 }
 
@@ -48,14 +56,6 @@ function getAllDataFromMother() {
                 document.querySelector(".slider").value = data.metrics[0]?.value;
                 break;
         }
-    });
-
-    client.on('error', (err) => {
-        console.error('Connection error:', err);
-    });
-
-    client.on('close', () => {
-        console.log('Connection closed');
     });
 }
 
