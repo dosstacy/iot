@@ -42,3 +42,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const plantType = new URLSearchParams(window.location.search).get('plant');
     updateStats(plantType);
 });
+
+function checkPlantState(){
+    const topic = 'kpi/solaris/allSensors/ad408gh/cmd';
+
+    let client = connectToMother({topic: topic});
+
+    client.on('connect', () => {
+        const message = JSON.stringify({command: 'get_all_data'});
+        sendDataToMQTT(topic, message, client);
+    });
+}

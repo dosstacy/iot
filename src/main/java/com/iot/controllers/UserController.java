@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-//TODO: 1. warning, якщо при signup username вже буде існувати; 2. js в один файл; 3. змінити сторінку plantType; ckeckPlantButton
+//TODO: 2. js в один файл; 3. змінити сторінку plantType; кольори для цифр; select plant from modal window
 
 @Controller
 @RequestMapping("/smartPlantie")

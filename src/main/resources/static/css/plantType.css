@@ -40,7 +40,7 @@
     transition: box-shadow 0.3s ease-in-out;
 }
 
-.plants button:hover {
+.plants button:focus {
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
 }
 
