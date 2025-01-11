@@ -5,9 +5,7 @@ import com.iot.services.PlantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,10 +23,15 @@ public class PlantRestController {
         return plantService.findFirstByOwnerUsername(username);
     }
 
-    @GetMapping()
+    @GetMapping
     public List<PlantInfoDto> findAll() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         return plantService.getAllPlants(username);
+    }
+
+    @PostMapping("/save")
+    public void save(@RequestBody PlantInfoDto plantInfoDto) {
+        plantService.save(plantInfoDto);
     }
 }

@@ -6,8 +6,12 @@ import com.iot.domain.exceptions.InvalidUserException;
 import com.iot.domain.exceptions.PlantsException;
 import com.iot.dto.PlantInfoDto;
 import com.iot.repository.PlantRepository;
+import com.iot.utils.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +19,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PlantService {
     private final PlantRepository plantRepository;
     private final ModelMapper modelMapper;
@@ -37,11 +42,17 @@ public class PlantService {
         }
     }
 
-    public void save(Plant plant) {
+    public void save(PlantInfoDto plantDto) {
+        Plant plant;
         try {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            CustomUserDetails customUserDetails = (CustomUserDetails) auth.getPrincipal();
+            User user = customUserDetails.getUser();
+            plant = modelMapper.map(plantDto, Plant.class);
+            plant.setOwner(user);
             plantRepository.save(plant);
         } catch (Exception e) {
-            throw new PlantsException("Cannot save plant " + plant);
+            throw new PlantsException("Cannot save plant " + e);
         }
     }
 

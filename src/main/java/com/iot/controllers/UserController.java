@@ -43,7 +43,7 @@ public class UserController {
         return "signUp";
     }
 
-    @PostMapping("/signUp")
+    @PostMapping("/signup")
     public String signUp(@RequestParam String username, @RequestParam String password) {
         try {
             User user = new User();
