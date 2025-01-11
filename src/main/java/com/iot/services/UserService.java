@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 @Service
 @RequiredArgsConstructor
@@ -25,16 +26,16 @@ public class UserService {
 //                .orElseThrow(() -> new InvalidUserException("Cannot get user with name " + username));
 //    }
 
-    public User save(User entity) {
-        isUserExist(entity.getUsername());
+    public User save(User entity, Model model) {
+        if (isUserExist(entity.getUsername())) {
+            model.addAttribute("errorMessage", "This username is already taken.");
+        }
         entity.setPassword(passwordEncoder.encode(entity.getPassword()));
         return userRepository.save(entity);
     }
 
-    private void isUserExist(String username) {
-        if (userRepository.findByUsername(username).isPresent()) {
-            throw new InvalidUserException("User with name " + username + " already exists");
-        }
+    private boolean isUserExist(String username) {
+        return userRepository.findByUsername(username).isPresent();
     }
 
     public void delete(Long id) {

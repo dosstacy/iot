@@ -13,8 +13,11 @@
     <div class="sign-up-container">
         <span>We are glad to see you!</span>
         <form action="/smartPlantie/signup" method="post">
-            <input type="text" id="username" name="username" minlength="4" maxlength=15 placeholder="Enter username" required>
-            <input type="password" id="password" name="password" minlength="6" maxlength="15" placeholder="Enter password" required>
+            <label th:if="${errorMessage}" class="username-taken" for="username" style="color: #85A947" th:text="${errorMessage}"></label>
+            <input type="text" id="username" name="username" minlength="4" maxlength=15 placeholder="Enter username"
+                   required>
+            <input type="password" id="password" name="password" minlength="6" maxlength="15"
+                   placeholder="Enter password" required>
             <input type="submit" value="Sign Up">
         </form>
     </div>

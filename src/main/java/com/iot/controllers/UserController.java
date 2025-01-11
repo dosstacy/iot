@@ -4,6 +4,7 @@ import com.iot.domain.entity.User;
 import com.iot.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,12 +45,12 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public String signUp(@RequestParam String username, @RequestParam String password) {
+    public String signUp(@RequestParam String username, @RequestParam String password, Model model) {
         try {
             User user = new User();
             user.setUsername(username);
             user.setPassword(password);
-            userService.save(user);
+            userService.save(user, model);
             return "redirect:/smartPlantie/login?registered=true";
         } catch (Exception e) {
             e.printStackTrace(System.out);
