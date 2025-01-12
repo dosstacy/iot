@@ -12,7 +12,6 @@ public class Plant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "plant_id")
     private Long id;
-    @Column(unique = true)
     private String name;
     @Enumerated(EnumType.STRING)
     private PlantType type;

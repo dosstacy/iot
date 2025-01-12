@@ -58,4 +58,10 @@ public class PlantRestController {
         userService.updateCurrentPlantId(customUser.getUser().getId(), customUser.getUser().getCurrentPlantId());
         log.info("Current plant id {}", customUser.getUser().getCurrentPlantId());
     }
+
+    @PostMapping("/bin")
+    public void deletePlant(@RequestParam String plantName) {
+        Long plantId = plantService.findIdByName(plantName);
+        plantService.delete(plantId);
+    }
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-//TODO: unique plant for user; add button for plant in modal window; change bg
+//TODO: unique plant for user; change bg
 
 @Controller
 @RequestMapping("/smartPlantie")

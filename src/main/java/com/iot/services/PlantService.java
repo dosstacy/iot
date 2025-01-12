@@ -51,6 +51,11 @@ public class PlantService {
             CustomUserDetails customUserDetails = (CustomUserDetails) auth.getPrincipal();
             User user = customUserDetails.getUser();
             plant = modelMapper.map(plantDto, Plant.class);
+
+            if(plantRepository.existsByNameAndOwner(plant.getName(), user)) {
+                throw new PlantsException("Plant with name " + plant.getName() + " already exists");
+            }
+
             plant.setOwner(user);
             plantRepository.save(plant);
         } catch (Exception e) {
