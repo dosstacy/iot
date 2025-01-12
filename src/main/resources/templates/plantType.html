@@ -17,19 +17,22 @@
         <span class="plants-main-span">Please choose type of your plant:</span>
         <div class="plants">
             <div class="dry-plants">
-                <img src="/images/succulent.png" alt="Succulent">
-                <button class="dry-btn" onclick="selectPlant('DRY_LOVER')"></button>
+                <button class="dry-btn" onclick="selectPlant('DRY_LOVER')">
+                    <img src="/images/succulent.png" alt="Succulent">
+                </button>
                 <span>Dry-loving plants</span>
             </div>
             <div class="medium-plants">
-                <img src="/images/calathea.png" alt="Calathea">
-                <button class="med-btn" onclick="selectPlant('MEDIUM_LOVER')"></button>
+                <button class="med-btn" onclick="selectPlant('MEDIUM_LOVER')">
+                    <img src="/images/calathea.png" alt="Calathea">
+                </button>
                 <span>Plants that like medium humidity</span>
             </div>
             <div class="water-plants">
-                <img src="/images/azalia.png" alt="Azalea">
+                <button class="water-btn" onclick="selectPlant('WATER_LOVER')">
+                    <img src="/images/azalia.png" alt="Azalea">
+                </button>
                 <span>Water-loving plants</span>
-                <button class="water-btn" onclick="selectPlant('WATER_LOVER')"></button>
             </div>
         </div>
         <button onclick="savePlant()" class="save-plant-button">Save</button>
