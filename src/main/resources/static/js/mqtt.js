@@ -26,38 +26,3 @@ function connectToMother(topics){
 
     return client;
 }
-
-function getAllDataFromMother() {
-    const topics = {
-        temperature: 'kpi/solaris/temperature/ad408gh',
-        airHumidity: 'kpi/solaris/humidity/air/ad408gh',
-        soilHumidity: 'kpi/solaris/humidity/soil/ad408gh',
-        light: 'kpi/solaris/light/ad408gh'
-    };
-
-    let client = connectToMother(topics);
-
-    client.on('message', (topic, message) => {
-        console.log(`Received a message from topic ${topic}: ${message.toString()}`);
-        const data = JSON.parse(message.toString());
-
-        switch (topic) {
-            case topics.temperature:
-                document.querySelector(".temp-stats").textContent = `${data.metrics[0]?.value} °C`;
-                break;
-            case topics.airHumidity:
-                document.querySelector(".air-stats").textContent = `${data.metrics[0]?.value} %`;
-                break;
-            case topics.soilHumidity:
-                document.querySelector(".soil-stats").textContent = `${data.metrics[0]?.value} %`;
-                break;
-            case topics.light:
-                document.querySelector(".light-stats").textContent = `${data.metrics[0]?.value} %`;
-                document.querySelector(".slider").value = data.metrics[0]?.value;
-                break;
-        }
-    });
-}
-
-
-

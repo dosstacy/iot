@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +26,7 @@ public class PlantRestController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails customUser = (CustomUserDetails) authentication.getPrincipal();
 
-        if(customUser.getUser().getCurrentPlantId() == null){
+        if (customUser.getUser().getCurrentPlantId() == null) {
             log.info("Is current plant id null? = {}", customUser.getUser().getCurrentPlantId());
             return plantService.findFirstByOwnerUsername(customUser.getUsername());
         }

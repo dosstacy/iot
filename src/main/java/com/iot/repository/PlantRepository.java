@@ -23,5 +23,4 @@ public interface PlantRepository extends CrudRepository<Plant, Long> {
     @Query("SELECT p.id FROM Plant p WHERE p.name = :name")
     Long findIdByName(@Param("name") String name);
 
-    List<Plant> findByOwnerCurrentPlantId(Long id);
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-//TODO: 2. js в один файл; 3. змінити сторінку plantType; кольори для цифр; select plant from modal window; unique plant for user
+//TODO: unique plant for user; add button for plant in modal window; plantProductId
 
 @Controller
 @RequestMapping("/smartPlantie")
