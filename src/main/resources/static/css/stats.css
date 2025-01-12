@@ -271,12 +271,9 @@
     transform: scale(1);
 }
 
-.close-modal-btn {
-    border: none;
-    outline: none;
+.modal-btns {
     background-color: transparent;
     padding: 0;
-    cursor: pointer;
     position: absolute;
     bottom: -60px;
     left: 50%;
@@ -284,6 +281,30 @@
     margin: 0;
     width: fit-content;
     height: fit-content;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.close-modal-btn, .add-modal-btn {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding: 0;
+    cursor: pointer;
+    margin: 0;
+    width: fit-content;
+    height: fit-content;
+}
+
+.delete-plant {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+    padding: 0;
+    height: 30px;
+    margin-right: 10px;
 }
 
 .change-plant-container {

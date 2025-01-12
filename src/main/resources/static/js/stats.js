@@ -132,6 +132,11 @@ async function fetchPlants() {
             plantElement.innerHTML = `
                     <span class="change-plant-data">${plant.plantName}</span>
                     <span class="change-plant-data">${plant.plantType}</span>
+                    <button class="delete-plant" onclick="deletePlant('${plant.plantName}')">
+                        <svg width="30px" height="30px" viewBox="0 0 303 303" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M75.75 239.875C75.75 246.572 78.4103 252.994 83.1456 257.729C87.8808 262.465 94.3033 265.125 101 265.125H202C208.697 265.125 215.119 262.465 219.854 257.729C224.59 252.994 227.25 246.572 227.25 239.875V88.375H75.75V239.875ZM101 113.625H202V239.875H101V113.625ZM195.688 50.5L183.062 37.875H119.938L107.312 50.5H63.125V75.75H239.875V50.5H195.688Z" fill="white"/>
+                        </svg>
+                    </button>
                     <button class="change-plant-btn" onclick="getCurrentPlantInfo('${plant.plantName}')">Select</button>
                 `;
 
@@ -190,4 +195,22 @@ function createMutationObserver(plantType, temp, air, soil) {
             subtree: true
         });
     });
+}
+
+async function deletePlant(plantName) {
+    try {
+        const response = await fetch(`/api/plants/bin?plantName=${plantName}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => {
+                console.log('fetch plant function')
+                fetchPlant()
+                window.location.href = '/smartPlantie/stats';
+            })
+    } catch (error) {
+        console.error('Error fetching plants:', error.message);
+    }
 }
