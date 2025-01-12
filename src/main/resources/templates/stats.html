@@ -25,7 +25,7 @@
                 <div class="plant-info"><span class="user-type">Your plant: </span>
                     <span class="user-type-name"> </span>
                     <div class="plant-btns">
-                        <button class="plant-btn">Change</button>
+                        <button class="open-modal-btn">Change</button>
                         <button class="plant-btn" onclick="checkPlantState()">Check the plant state</button>
                     </div>
                 </div>
@@ -117,9 +117,12 @@
             const plants = await response.json();
             let plant;
 
+            console.log('here is fetchPlant')
+            console.log('response from json ', plants)
+
             if (!plants) {
-                console.error('Plant data is null or undefined.');
-                window.location.href = '/plantType';
+                //window.location.href = '/smartPlantie/plantType';
+                console.log('there should be redirect to /plantType')
             }
 
             if (plants.plantType === "DRY_LOVER") {
@@ -160,7 +163,7 @@
                 plantElement.innerHTML = `
                     <span class="change-plant-data">${plant.plantName}</span>
                     <span class="change-plant-data">${plant.plantType}</span>
-                    <button class="change-plant-btn">Select</button>
+                    <button class="change-plant-btn" onclick="getCurrentPlantInfo('${plant.plantName}')">Select</button>
                 `;
 
                 container.appendChild(plantElement);

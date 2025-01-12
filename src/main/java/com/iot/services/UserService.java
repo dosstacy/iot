@@ -51,4 +51,8 @@ public class UserService {
 
         return passwordEncoder.matches(rawPassword, user.getPassword());
     }
+
+    public void updateCurrentPlantId(Long userId, Long plantId) {
+        userRepository.updateCurrentPlantId(userId, plantId);
+    }
 }

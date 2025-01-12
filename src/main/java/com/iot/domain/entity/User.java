@@ -18,5 +18,5 @@ public class User {
     private String password;
     @OneToMany(mappedBy = "owner")
     private List<Plant> plants;
-
+    private Long currentPlantId;
 }

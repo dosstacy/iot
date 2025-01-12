@@ -53,3 +53,22 @@ function checkPlantState(){
         sendDataToMQTT(topic, message, client);
     });
 }
+
+async function getCurrentPlantInfo(plantName) {
+    console.log('Plant name in post: ', plantName)
+
+    try {
+        const response = await fetch(`/api/plants/plant?plantName=${plantName}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => {
+                console.log('fetch plant function')
+                fetchPlant()
+            })
+    } catch (error) {
+        console.error('Error fetching plants:', error.message);
+    }
+}

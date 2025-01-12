@@ -6,6 +6,7 @@ import com.iot.domain.exceptions.InvalidUserException;
 import com.iot.domain.exceptions.PlantsException;
 import com.iot.dto.PlantInfoDto;
 import com.iot.repository.PlantRepository;
+import com.iot.repository.UserRepository;
 import com.iot.utils.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ import java.util.Optional;
 @Slf4j
 public class PlantService {
     private final PlantRepository plantRepository;
+    private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
     public Plant getById(Long id) {
@@ -70,12 +72,23 @@ public class PlantService {
                 .toList();
     }
 
-    public Optional<PlantInfoDto> findFirstByOwnerUsername(String username) {
-        return plantRepository.findFirstByOwnerUsername(username)
+    public Optional<PlantInfoDto> findPlantByCurrentPlantId(Long plantId) {
+        log.info("Current plant id: " + plantId);
+        log.info("Plant by current plant id is {}", plantRepository.findPlantByOwnerCurrentPlantId(plantId));
+        return plantRepository.findPlantByOwnerCurrentPlantId(plantId)
                 .map(plant -> modelMapper.map(plant, PlantInfoDto.class));
     }
 
     public boolean userHasPlants(String username) {
         return plantRepository.existsByOwnerUsername(username);
+    }
+
+    public Long findIdByName(String name) {
+        return plantRepository.findIdByName(name);
+    }
+
+    public Optional<PlantInfoDto> findFirstByOwnerUsername(String username) {
+        return plantRepository.findFirstByOwnerUsername(username)
+                .map(plant -> modelMapper.map(plant, PlantInfoDto.class));
     }
 }

@@ -221,7 +221,7 @@
     gap: 10px;
 }
 
-.plant-btn {
+.plant-btn, .open-modal-btn {
     padding: 9px 19px;
     background-color: #11804a;
     color: white;
@@ -232,7 +232,7 @@
     transition: background-color 0.3s ease;
 }
 
-.plant-btn:hover {
+.plant-btn:hover, .open-modal-btn:hover {
     background-color: #0f6e40;
 }
 
