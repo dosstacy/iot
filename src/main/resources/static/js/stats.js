@@ -67,6 +67,7 @@ async function getCurrentPlantInfo(plantName) {
             .then(response => {
                 console.log('fetch plant function')
                 fetchPlant()
+                window.location.href = '/smartPlantie/stats';
             })
     } catch (error) {
         console.error('Error fetching plants:', error.message);
