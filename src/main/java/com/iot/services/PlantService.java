@@ -73,9 +73,7 @@ public class PlantService {
     }
 
     public Optional<PlantInfoDto> findPlantByCurrentPlantId(Long plantId) {
-        log.info("Current plant id: " + plantId);
-        log.info("Plant by current plant id is {}", plantRepository.findPlantByOwnerCurrentPlantId(plantId));
-        return plantRepository.findPlantByOwnerCurrentPlantId(plantId)
+        return plantRepository.findById(plantId)
                 .map(plant -> modelMapper.map(plant, PlantInfoDto.class));
     }
 
