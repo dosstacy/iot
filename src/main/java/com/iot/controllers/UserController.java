@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-//TODO: unique plant for user; change bg
-
 @Controller
 @RequestMapping("/smartPlantie")
 @RequiredArgsConstructor
@@ -23,12 +21,12 @@ public class UserController {
         return "welcomePage";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/logIn")
     public String logIn() {
         return "logIn";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/logIn")
     public String login(@RequestParam String username, @RequestParam String password) {
         try {
             userService.authenticate(username, password);
@@ -39,7 +37,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/signup")
+    @GetMapping("/signUp")
     public String signUp() {
         return "signUp";
     }
@@ -51,7 +49,7 @@ public class UserController {
             user.setUsername(username);
             user.setPassword(password);
             userService.save(user, model);
-            return "redirect:/smartPlantie/login?registered=true";
+            return "redirect:/smartPlantie/logIn?registered=true";
         } catch (Exception e) {
             e.printStackTrace(System.out);
             return "signUp";
