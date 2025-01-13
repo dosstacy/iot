@@ -21,9 +21,11 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/smartPlantie", "/smartPlantie/signup", "/smartPlantie/login", "/css/**", "/images/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
+                        .loginPage("/smartPlantie/login")
                         .successHandler(successHandler)
                 )
 
