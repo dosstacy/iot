@@ -25,7 +25,7 @@
                 <div class="plant-info"><span class="user-type">Your plant: </span>
                     <span class="user-type-name"> </span>
                     <div class="plant-btns">
-                        <button class="open-modal-btn">Change plant</button>
+                        <button class="open-modal-btn">Change or add plant</button>
                         <button class="plant-btn" onclick="checkPlantState()">Check the plant state</button>
                     </div>
                 </div>
@@ -56,8 +56,7 @@
                     <span class="light-stats">0 %</span>
 
                     <div class="light-slide-container">
-                        <input type="range" min="0" max="100" value="0" class="slider" id="myRange"
-                               onclick="lightAdjust(lightLevel)">
+                        <input type="range" min="0" max="100" value="0" class="slider" id="myRange">
                     </div>
                 </div>
 
@@ -94,9 +93,17 @@
 
 <script type="text/javascript">
     let lightLevel;
+    let debounceTimer;
+
     document.querySelector(".slider").oninput = function () {
         lightLevel = this.value;
         document.querySelector(".light-stats").textContent = `${lightLevel}%`;
+
+        clearTimeout(debounceTimer);
+
+        debounceTimer = setTimeout(function() {
+            lightAdjust(lightLevel);
+        }, 2000);
     };
 
     const modal = document.getElementById('modal');

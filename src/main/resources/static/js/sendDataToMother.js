@@ -12,6 +12,7 @@ function waterPlant() {
 function lightAdjust(percent) {
     const light = 'kpi/solaris/light/ad408gh/cmd';
 
+
     let client = connectToMother({light: light});
 
     client.on('connect', () => {
