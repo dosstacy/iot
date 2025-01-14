@@ -55,8 +55,26 @@
                     <span class="light-head">Light</span>
                     <span class="light-stats">0 %</span>
 
-                    <div class="light-slide-container">
-                        <input type="range" min="0" max="100" value="0" class="slider" id="myRange">
+                    <div class="sun-design">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" stroke="#11804A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 2V4M12 20V22M4.93 4.93L6.34 6.34M17.66 17.66L19.07 19.07M2 12H4M20 12H22M6.34 17.66L4.93 19.07M19.07 4.93L17.66 6.34" stroke="#11804A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" stroke="#11804A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 2V4M12 20V22M4.93 4.93L6.34 6.34M17.66 17.66L19.07 19.07M2 12H4M20 12H22M6.34 17.66L4.93 19.07M19.07 4.93L17.66 6.34" stroke="#11804A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" stroke="#11804A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 2V4M12 20V22M4.93 4.93L6.34 6.34M17.66 17.66L19.07 19.07M2 12H4M20 12H22M6.34 17.66L4.93 19.07M19.07 4.93L17.66 6.34" stroke="#11804A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress"></div>
                     </div>
                 </div>
 
@@ -92,20 +110,6 @@
 </div>
 
 <script type="text/javascript">
-    let lightLevel;
-    let debounceTimer;
-
-    document.querySelector(".slider").oninput = function () {
-        lightLevel = this.value;
-        document.querySelector(".light-stats").textContent = `${lightLevel}%`;
-
-        clearTimeout(debounceTimer);
-
-        debounceTimer = setTimeout(function() {
-            lightAdjust(lightLevel);
-        }, 2000);
-    };
-
     const modal = document.getElementById('modal');
     const openModalBtn = document.querySelector('.open-modal-btn');
     const closeModalBtn = document.getElementById('close-modal');

@@ -173,7 +173,7 @@ function getAllDataFromMother() {
                 break;
             case topics.light:
                 document.querySelector(".light-stats").textContent = `${data.metrics[0]?.value} %`;
-                document.querySelector(".slider").value = data.metrics[0]?.value;
+                document.querySelector(".progress").style.width = `${data.metrics[0]?.value}%`;
                 break;
         }
     });
