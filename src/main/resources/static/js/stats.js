@@ -157,9 +157,25 @@ function getAllDataFromMother() {
 
     let client = connectToMother(topics);
 
-    client.on('message', (topic, message) => {
+    client.on('message', async (topic, message) => {
         console.log(`Received a message from topic ${topic}: ${message.toString()}`);
         const data = JSON.parse(message.toString());
+
+        try {
+            const response = await fetch('/api/plants/data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                console.log('Plant updated successfully!');
+            }
+        } catch (error) {
+            console.error('Error updating plant:', error);
+        }
 
         switch (topic) {
             case topics.temperature:
