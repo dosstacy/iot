@@ -1,6 +1,7 @@
 package com.iot.controllers;
 
 import com.iot.dto.PlantInfoDto;
+import com.iot.dto.PlantStatsDto;
 import com.iot.services.PlantService;
 import com.iot.services.UserService;
 import com.iot.utils.CustomUserDetails;
@@ -59,9 +60,14 @@ public class PlantRestController {
         log.info("Current plant id {}", customUser.getUser().getCurrentPlantId());
     }
 
-    @PostMapping("/bin")
+    @DeleteMapping("/bin")
     public void deletePlant(@RequestParam String plantName) {
         Long plantId = plantService.findIdByName(plantName);
         plantService.delete(plantId);
+    }
+
+    @PutMapping("/data")
+    public void updatePlantStats(@RequestBody PlantStatsDto plantStatsDto) {
+        plantService.updatePlantStats(plantStatsDto);
     }
 }

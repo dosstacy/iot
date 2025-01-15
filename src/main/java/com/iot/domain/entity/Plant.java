@@ -18,4 +18,8 @@ public class Plant {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User owner;
+    private float temperature;
+    private float humidityAir;
+    private float humiditySoil;
+    private float light;
 }

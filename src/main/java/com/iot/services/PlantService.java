@@ -5,6 +5,7 @@ import com.iot.domain.entity.User;
 import com.iot.domain.exceptions.InvalidUserException;
 import com.iot.domain.exceptions.PlantsException;
 import com.iot.dto.PlantInfoDto;
+import com.iot.dto.PlantStatsDto;
 import com.iot.repository.PlantRepository;
 import com.iot.repository.UserRepository;
 import com.iot.utils.CustomUserDetails;
@@ -93,5 +94,15 @@ public class PlantService {
     public Optional<PlantInfoDto> findFirstByOwnerUsername(String username) {
         return plantRepository.findFirstByOwnerUsername(username)
                 .map(plant -> modelMapper.map(plant, PlantInfoDto.class));
+    }
+
+    public void updatePlantStats(PlantStatsDto plantStatsDto) {
+        Plant plant;
+        try {
+            plant = modelMapper.map(plantStatsDto, Plant.class);
+            plantRepository.save(plant);
+        } catch (Exception e) {
+            throw new PlantsException("Cannot save plant " + e);
+        }
     }
 }
