@@ -46,7 +46,7 @@ function updateStats(plantType) {
 }
 
 function checkPlantState() {
-    const topic = 'kpi/solaris/allSensors/ad408gh/cmd';
+    const topic = 'kpi/solaris/allSensors/kvetinac3000/cmd';
 
     let client = connectToMother({topic: topic});
 
@@ -149,10 +149,10 @@ async function fetchPlants() {
 
 function getAllDataFromMother() {
     const topics = {
-        temperature: 'kpi/solaris/temperature/ad408gh',
-        airHumidity: 'kpi/solaris/humidity/air/ad408gh',
-        soilHumidity: 'kpi/solaris/humidity/soil/ad408gh',
-        light: 'kpi/solaris/light/ad408gh'
+        temperature: 'kpi/solaris/temperature/kvetinac3000',
+        airHumidity: 'kpi/solaris/humidity/air/kvetinac3000',
+        soilHumidity: 'kpi/solaris/humidity/soil/kvetinac3000',
+        light: 'kpi/solaris/light/kvetinac3000'
     };
 
     let client = connectToMother(topics);

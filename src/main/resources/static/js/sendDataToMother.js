@@ -1,5 +1,5 @@
 function waterPlant() {
-    const humidity = 'kpi/solaris/humidity/ad408gh/cmd';
+    const humidity = 'kpi/solaris/humidity/kvetinac3000/cmd';
 
     let client = connectToMother({humidity: humidity});
 
