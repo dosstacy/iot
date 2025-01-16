@@ -147,7 +147,7 @@ async function fetchPlants() {
     }
 }
 
-function getAllDataFromMother() {
+async function getAllDataFromMother() {
     const topics = {
         temperature: 'kpi/solaris/temperature/kvetinac3000',
         airHumidity: 'kpi/solaris/humidity/air/kvetinac3000',
@@ -157,13 +157,15 @@ function getAllDataFromMother() {
 
     let client = connectToMother(topics);
 
+    //console.log(constPlantName)
+
     client.on('message', async (topic, message) => {
         console.log(`Received a message from topic ${topic}: ${message.toString()}`);
         const data = JSON.parse(message.toString());
 
         try {
             const response = await fetch('/api/plants/data', {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -176,6 +178,7 @@ function getAllDataFromMother() {
         } catch (error) {
             console.error('Error updating plant:', error);
         }
+
 
         switch (topic) {
             case topics.temperature:

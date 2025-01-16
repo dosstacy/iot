@@ -13,7 +13,6 @@
     <script src="/js/sendDataToMother.js"></script>
 </head>
 <body>
-<script>getAllDataFromMother()</script>
 <div class="stats-page" style="background-image:url('/images/background.png'); background-size: cover;">
     <div class="stats-page-container">
         <div class="upper-logo-container">
@@ -107,6 +106,12 @@
             </div>
         </div>
     </div>
+    <script>
+        window.addEventListener('load', function() {
+            console.log('Всі ресурси сторінки повністю завантажені');
+            getAllDataFromMother();
+        });
+    </script>
 </div>
 
 <script type="text/javascript">

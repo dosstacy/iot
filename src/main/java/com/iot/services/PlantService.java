@@ -5,7 +5,6 @@ import com.iot.domain.entity.User;
 import com.iot.domain.exceptions.InvalidUserException;
 import com.iot.domain.exceptions.PlantsException;
 import com.iot.dto.PlantInfoDto;
-import com.iot.dto.PlantStatsDto;
 import com.iot.repository.PlantRepository;
 import com.iot.repository.UserRepository;
 import com.iot.utils.CustomUserDetails;
@@ -96,13 +95,31 @@ public class PlantService {
                 .map(plant -> modelMapper.map(plant, PlantInfoDto.class));
     }
 
-    public void updatePlantStats(PlantStatsDto plantStatsDto) {
-        Plant plant;
+    public void updatePlantStats(Long plantId, String type, float data) {
+        Plant plant = plantRepository.findById(plantId).orElseThrow(() -> new PlantsException("Cannot update plant with id " + plantId));
+        log.info("Type of data: {}", type);
+        switch (type) {
+            case "temperature" -> plant.setTemperature(data);
+            case "humidity_soil" -> plant.setHumiditySoil(data);
+            case "humidity_air" -> plant.setHumidityAir(data);
+            default -> plant.setLight(data);
+        }
         try {
-            plant = modelMapper.map(plantStatsDto, Plant.class);
             plantRepository.save(plant);
         } catch (Exception e) {
             throw new PlantsException("Cannot save plant " + e);
         }
+    }
+
+    public Optional<PlantInfoDto> findPlantByCurrentPlantIdOrFirst(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) authentication.getPrincipal();
+
+        if (customUser.getUser().getCurrentPlantId() == null) {
+            log.info("Is current plant id null? = {}", customUser.getUser().getCurrentPlantId());
+            return findFirstByOwnerUsername(customUser.getUsername());
+        }
+        log.info("result from findPlantByCurrentPlantIdOrFirst: {}", findPlantByCurrentPlantId(customUser.getUser().getCurrentPlantId()));
+        return findPlantByCurrentPlantId(customUser.getUser().getCurrentPlantId());
     }
 }

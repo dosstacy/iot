@@ -1,7 +1,9 @@
 package com.iot.controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.iot.domain.exceptions.PlantNotFound;
 import com.iot.dto.PlantInfoDto;
-import com.iot.dto.PlantStatsDto;
 import com.iot.services.PlantService;
 import com.iot.services.UserService;
 import com.iot.utils.CustomUserDetails;
@@ -24,15 +26,7 @@ public class PlantRestController {
 
     @GetMapping("/info")
     public Optional<PlantInfoDto> findPlantByCurrentPlantIdOrFirst() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomUserDetails customUser = (CustomUserDetails) authentication.getPrincipal();
-
-        if (customUser.getUser().getCurrentPlantId() == null) {
-            log.info("Is current plant id null? = {}", customUser.getUser().getCurrentPlantId());
-            return plantService.findFirstByOwnerUsername(customUser.getUsername());
-        }
-        log.info("result from findPlantByCurrentPlantIdOrFirst: {}", plantService.findPlantByCurrentPlantId(customUser.getUser().getCurrentPlantId()));
-        return plantService.findPlantByCurrentPlantId(customUser.getUser().getCurrentPlantId());
+        return plantService.findPlantByCurrentPlantIdOrFirst();
     }
 
     @GetMapping
@@ -67,7 +61,31 @@ public class PlantRestController {
     }
 
     @PutMapping("/data")
-    public void updatePlantStats(@RequestBody PlantStatsDto plantStatsDto) {
-        plantService.updatePlantStats(plantStatsDto);
+    public void updatePlantStats(@RequestBody String jsonBody) {
+        Optional<PlantInfoDto> plant = plantService.findPlantByCurrentPlantIdOrFirst();
+        String plantName = plant.get().getPlantName();
+
+        if (plantName == null) {
+            throw new PlantNotFound("Cannot find plant because its name is null");
+        }
+
+        Long plantId = plantService.findIdByName(plantName);
+        String dataType = null;
+        String value = null;
+
+        log.info("This is jsonBody: {}", jsonBody);
+
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode root = objectMapper.readTree(jsonBody);
+            dataType = root.path("metrics").get(0).path("name").asText();
+            value = root.path("metrics").get(0).path("value").asText();
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+        }
+
+        if (dataType != null && value != null) {
+            plantService.updatePlantStats(plantId, dataType, Float.parseFloat(value));
+        }
     }
 }
