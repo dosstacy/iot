@@ -2,13 +2,16 @@ package com.iot.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.iot.domain.exceptions.PlantNotFound;
+import com.iot.dto.PlantFullInfoDto;
 import com.iot.dto.PlantInfoDto;
+import com.iot.dto.PlantStatsDto;
+import com.iot.repository.PlantRepository;
 import com.iot.services.PlantService;
 import com.iot.services.UserService;
 import com.iot.utils.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +26,25 @@ import java.util.Optional;
 public class PlantRestController {
     private final PlantService plantService;
     private final UserService userService;
+    private final ModelMapper modelMapper;
+    private final PlantRepository plantRepository;
 
     @GetMapping("/info")
-    public Optional<PlantInfoDto> findPlantByCurrentPlantIdOrFirst() {
+    public Optional<PlantFullInfoDto> getPlantStats() {
+        Optional<PlantFullInfoDto> dto = findPlantByCurrentPlantIdOrFirst();
+        Long id = dto.get().getId();
+
+        Optional<PlantStatsDto> stats = plantService.getPlantStats(id);
+
+        dto.get().setTemperature(stats.get().getTemperature());
+        dto.get().setHumiditySoil(stats.get().getHumiditySoil());
+        dto.get().setHumidityAir(stats.get().getHumidityAir());
+        dto.get().setLight(stats.get().getLight());
+
+        return dto;
+    }
+
+    public Optional<PlantFullInfoDto> findPlantByCurrentPlantIdOrFirst() {
         return plantService.findPlantByCurrentPlantIdOrFirst();
     }
 
@@ -60,16 +79,11 @@ public class PlantRestController {
         plantService.delete(plantId);
     }
 
-    @PutMapping("/data")
+    @PutMapping("/stats")
     public void updatePlantStats(@RequestBody String jsonBody) {
-        Optional<PlantInfoDto> plant = plantService.findPlantByCurrentPlantIdOrFirst();
-        String plantName = plant.get().getPlantName();
+        Optional<PlantFullInfoDto> plant = plantService.findPlantByCurrentPlantIdOrFirst();
+        Long plantId = plant.get().getId();
 
-        if (plantName == null) {
-            throw new PlantNotFound("Cannot find plant because its name is null");
-        }
-
-        Long plantId = plantService.findIdByName(plantName);
         String dataType = null;
         String value = null;
 
@@ -84,7 +98,7 @@ public class PlantRestController {
             e.printStackTrace(System.out);
         }
 
-        if (dataType != null && value != null) {
+        if (dataType != null || value != null) {
             plantService.updatePlantStats(plantId, dataType, Float.parseFloat(value));
         }
     }

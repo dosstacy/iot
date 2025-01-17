@@ -82,8 +82,7 @@ async function fetchPlant() {
         const plants = await response.json();
         let plant;
 
-        console.log('here is fetchPlant')
-        console.log('response from json ', plants)
+        console.log("This is data json: ", plants);
 
         if (!plants) {
             window.location.href = '/smartPlantie/plantType';
@@ -106,6 +105,12 @@ async function fetchPlant() {
             document.querySelector(".plant-description").textContent = `Water-loving plants such as ferns or tropical flowers need regular watering and high humidity. They like warmth and grow best at temperatures between 18 and 25°C. Since these plants do not tolerate drying out, it is important to keep the soil and the environment constantly moist, for example by using humidifiers.`
             createMutationObserver("WATER_LOVER", temperature, air, soil);
         }
+
+        document.querySelector(".temp-stats").textContent = `${plants.temperature} °C`
+        document.querySelector(".air-stats").textContent = `${plants.humidityAir} %`
+        document.querySelector(".soil-stats").textContent = `${plants.humiditySoil} %`
+        document.querySelector(".light-stats").textContent = `${plants.light} %`
+        document.querySelector(".progress").style.width = `${plants.light}%`;
 
         document.querySelector(".user-type-name").textContent = `${plants.plantName} (${plant})`
     } catch (error) {
@@ -157,14 +162,12 @@ async function getAllDataFromMother() {
 
     let client = connectToMother(topics);
 
-    //console.log(constPlantName)
-
     client.on('message', async (topic, message) => {
         console.log(`Received a message from topic ${topic}: ${message.toString()}`);
         const data = JSON.parse(message.toString());
 
         try {
-            const response = await fetch('/api/plants/data', {
+            const response = await fetch('/api/plants/stats', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

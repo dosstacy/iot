@@ -4,7 +4,9 @@ import com.iot.domain.entity.Plant;
 import com.iot.domain.entity.User;
 import com.iot.domain.exceptions.InvalidUserException;
 import com.iot.domain.exceptions.PlantsException;
+import com.iot.dto.PlantFullInfoDto;
 import com.iot.dto.PlantInfoDto;
+import com.iot.dto.PlantStatsDto;
 import com.iot.repository.PlantRepository;
 import com.iot.repository.UserRepository;
 import com.iot.utils.CustomUserDetails;
@@ -77,22 +79,12 @@ public class PlantService {
                 .toList();
     }
 
-    public Optional<PlantInfoDto> findPlantByCurrentPlantId(Long plantId) {
-        return plantRepository.findById(plantId)
-                .map(plant -> modelMapper.map(plant, PlantInfoDto.class));
-    }
-
     public boolean userHasPlants(String username) {
         return plantRepository.existsByOwnerUsername(username);
     }
 
     public Long findIdByName(String name) {
         return plantRepository.findIdByName(name);
-    }
-
-    public Optional<PlantInfoDto> findFirstByOwnerUsername(String username) {
-        return plantRepository.findFirstByOwnerUsername(username)
-                .map(plant -> modelMapper.map(plant, PlantInfoDto.class));
     }
 
     public void updatePlantStats(Long plantId, String type, float data) {
@@ -111,7 +103,7 @@ public class PlantService {
         }
     }
 
-    public Optional<PlantInfoDto> findPlantByCurrentPlantIdOrFirst(){
+    public Optional<PlantFullInfoDto> findPlantByCurrentPlantIdOrFirst(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails customUser = (CustomUserDetails) authentication.getPrincipal();
 
@@ -121,5 +113,20 @@ public class PlantService {
         }
         log.info("result from findPlantByCurrentPlantIdOrFirst: {}", findPlantByCurrentPlantId(customUser.getUser().getCurrentPlantId()));
         return findPlantByCurrentPlantId(customUser.getUser().getCurrentPlantId());
+    }
+
+    public Optional<PlantFullInfoDto> findPlantByCurrentPlantId(Long plantId) {
+        return plantRepository.findById(plantId)
+                .map(plant -> modelMapper.map(plant, PlantFullInfoDto.class));
+    }
+
+    public Optional<PlantFullInfoDto> findFirstByOwnerUsername(String username) {
+        return plantRepository.findFirstByOwnerUsername(username)
+                .map(plant -> modelMapper.map(plant, PlantFullInfoDto.class));
+    }
+
+    public Optional<PlantStatsDto> getPlantStats(Long id){
+        return plantRepository.findById(id)
+                .map(plant -> modelMapper.map(plant, PlantStatsDto.class));
     }
 }
