@@ -47,22 +47,17 @@ public class PlantService {
     }
 
     public void save(PlantInfoDto plantDto) {
-        Plant plant;
-        try {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            CustomUserDetails customUserDetails = (CustomUserDetails) auth.getPrincipal();
-            User user = customUserDetails.getUser();
-            plant = modelMapper.map(plantDto, Plant.class);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUserDetails = (CustomUserDetails) auth.getPrincipal();
+        User user = customUserDetails.getUser();
+        Plant plant = modelMapper.map(plantDto, Plant.class);
 
-            if(plantRepository.existsByNameAndOwner(plant.getName(), user)) {
-                throw new PlantsException("Plant with name " + plant.getName() + " already exists");
-            }
-
-            plant.setOwner(user);
-            plantRepository.save(plant);
-        } catch (Exception e) {
-            throw new PlantsException("Cannot save plant " + e);
+        if (plantRepository.existsByNameAndOwner(plant.getName(), user)) {
+            throw new PlantsException("Plant with name " + plant.getName() + " already exists");
         }
+
+        plant.setOwner(user);
+        plantRepository.save(plant);
     }
 
     public void delete(Long id) {
@@ -103,7 +98,7 @@ public class PlantService {
         }
     }
 
-    public Optional<PlantFullInfoDto> findPlantByCurrentPlantIdOrFirst(){
+    public Optional<PlantFullInfoDto> findPlantByCurrentPlantIdOrFirst() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails customUser = (CustomUserDetails) authentication.getPrincipal();
 
@@ -125,7 +120,7 @@ public class PlantService {
                 .map(plant -> modelMapper.map(plant, PlantFullInfoDto.class));
     }
 
-    public Optional<PlantStatsDto> getPlantStats(Long id){
+    public Optional<PlantStatsDto> getPlantStats(Long id) {
         return plantRepository.findById(id)
                 .map(plant -> modelMapper.map(plant, PlantStatsDto.class));
     }

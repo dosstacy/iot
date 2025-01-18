@@ -31,7 +31,8 @@ async function savePlant() {
             console.log('Plant saved successfully!');
             window.location.href = "/smartPlantie/stats";
         } else {
-            alert('This plant name is already in use. Please choose another one.');
+            const errorMessage = await response.text();
+            alert(errorMessage);
         }
     } catch (error) {
         console.error('Error saving plant:', error);

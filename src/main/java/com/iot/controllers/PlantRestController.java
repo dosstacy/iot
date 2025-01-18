@@ -5,16 +5,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iot.dto.PlantFullInfoDto;
 import com.iot.dto.PlantInfoDto;
 import com.iot.dto.PlantStatsDto;
-import com.iot.repository.PlantRepository;
 import com.iot.services.PlantService;
 import com.iot.services.UserService;
 import com.iot.utils.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import com.iot.domain.exceptions.PlantsException;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,8 +27,6 @@ import java.util.Optional;
 public class PlantRestController {
     private final PlantService plantService;
     private final UserService userService;
-    private final ModelMapper modelMapper;
-    private final PlantRepository plantRepository;
 
     @GetMapping("/info")
     public Optional<PlantFullInfoDto> getPlantStats() {
@@ -56,8 +55,15 @@ public class PlantRestController {
     }
 
     @PostMapping("/save")
-    public void save(@RequestBody PlantInfoDto plantInfoDto) {
-        plantService.save(plantInfoDto);
+    public ResponseEntity<?> save(@RequestBody PlantInfoDto plantInfoDto) {
+        try {
+            plantService.save(plantInfoDto);
+            return ResponseEntity.ok("Plant saved successfully!");
+        } catch (PlantsException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred: " + e.getMessage());
+        }
     }
 
     @PostMapping("/plant")
