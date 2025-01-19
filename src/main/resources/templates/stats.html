@@ -10,7 +10,6 @@
     <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
     <script src="/js/stats.js"></script>
     <script src="/js/mqtt.js"></script>
-    <script src="/js/sendDataToMother.js"></script>
 </head>
 <body>
 <div class="stats-page" style="background-image:url('/images/background.png'); background-size: cover;">
@@ -75,6 +74,8 @@
                     <div class="progress-bar">
                         <div class="progress"></div>
                     </div>
+
+                    <button class="light-button" onclick="lightUp()">Turn the light on</button>
                 </div>
 
                 <div class="modal-overlay active" id="modal">

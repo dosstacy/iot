@@ -149,6 +149,19 @@
     cursor: pointer;
 }
 
+.light-button {
+    padding: 15px 20px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    font-size: 1.2em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 15px auto 0;
+    display: block;
+    background-color: #145233;
+    color: white;
+    cursor: pointer;
+}
+
 .light-head {
     font-size: 0.9em;
     font-weight: bold;
