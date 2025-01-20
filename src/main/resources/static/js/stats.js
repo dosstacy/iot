@@ -326,7 +326,7 @@ function lightOff() {
     let client = connectToMother({light: light});
 
     client.on('connect', () => {
-        const message = JSON.stringify({command: 'light_ff', value: true, counter: count});
+        const message = JSON.stringify({command: 'light_off', value: true, counter: count});
         sendDataToMQTT(light, message, client);
     });
 
