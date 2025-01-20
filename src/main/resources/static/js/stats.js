@@ -1,6 +1,4 @@
-let allCount = 0;
-let lightCount = 0;
-let humCount = 0;
+let count = 0;
 
 function updateStats(plantType) {
     const temp = parseFloat(document.querySelector('.temp-stats').textContent);
@@ -55,11 +53,11 @@ function checkPlantState() {
     let client = connectToMother({topic: topic});
 
     client.on('connect', () => {
-        const message = JSON.stringify({command: 'get_all_data', counter: allCount});
+        const message = JSON.stringify({command: 'get_all_data', counter: count});
         sendDataToMQTT(topic, message, client);
     });
 
-    allCount++;
+    count++;
 }
 
 async function getCurrentPlantInfo(plantName) {
@@ -292,15 +290,15 @@ function waterPlant() {
     let client = connectToMother({humidity: humidity});
 
     client.on('connect', () => {
-        const message = JSON.stringify({command: 'turn_on', value: true, counter: humCount});
+        const message = JSON.stringify({command: 'turn_on', value: true, counter: count});
         sendDataToMQTT(humidity, message, client);
     });
 
-    humCount++;
+    count++;
 }
 
 function sendDataToMQTT(topic, message, client) {
-    client.publish(topic, message, (err) => {
+    client.publish(topic, message, { retain: true }, (err) => {
         if (err) {
             console.error('Error while publishing:', err);
         } else {
@@ -315,9 +313,23 @@ function lightUp() {
     let client = connectToMother({light: light});
 
     client.on('connect', () => {
-        const message = JSON.stringify({command: 'light_on', value: true, counter: lightCount});
+        const message = JSON.stringify({command: 'light_on', value: true, counter: count});
         sendDataToMQTT(light, message, client);
     });
 
-    lightCount++;
+    count++;
 }
+
+function lightOff() {
+    const light = 'kpi/solaris/light/kvetinac3000/cmd';
+
+    let client = connectToMother({light: light});
+
+    client.on('connect', () => {
+        const message = JSON.stringify({command: 'light_ff', value: true, counter: count});
+        sendDataToMQTT(light, message, client);
+    });
+
+    count++;
+}
+
