@@ -155,8 +155,8 @@ async function fetchPlants() {
 async function getAllDataFromMother() {
     const topics = {
         temperature: 'kpi/solaris/temperature/kvetinac3000',
-        airHumidity: 'kpi/solaris/humidity/air/kvetinac3000',
-        soilHumidity: 'kpi/solaris/humidity/soil/kvetinac3000',
+        airHumidity: 'kpi/solaris/humidity_air/kvetinac3000',
+        soilHumidity: 'kpi/solaris/humidity_soil/kvetinac3000',
         light: 'kpi/solaris/light/kvetinac3000'
     };
 
@@ -185,17 +185,17 @@ async function getAllDataFromMother() {
 
         switch (topic) {
             case topics.temperature:
-                document.querySelector(".temp-stats").textContent = `${data.metrics[0]?.value} °C`;
+                document.querySelector(".temp-stats").textContent = `${data.value} °C`;
                 break;
             case topics.airHumidity:
-                document.querySelector(".air-stats").textContent = `${data.metrics[0]?.value} %`;
+                document.querySelector(".air-stats").textContent = `${data.value} %`;
                 break;
             case topics.soilHumidity:
-                document.querySelector(".soil-stats").textContent = `${data.metrics[0]?.value} %`;
+                document.querySelector(".soil-stats").textContent = `${data.value} %`;
                 break;
             case topics.light:
-                document.querySelector(".light-stats").textContent = `${data.metrics[0]?.value} %`;
-                document.querySelector(".progress").style.width = `${data.metrics[0]?.value}%`;
+                document.querySelector(".light-stats").textContent = `${data.value} %`;
+                document.querySelector(".progress").style.width = `${data.value}%`;
                 break;
         }
     });
@@ -264,7 +264,7 @@ function lightUp() {
     let client = connectToMother({light: light});
 
     client.on('connect', () => {
-        const message = JSON.stringify({command: 'turn_on', value: true});
+        const message = JSON.stringify({command: 'light_on', value: true});
         sendDataToMQTT(light, message, client);
     });
 }

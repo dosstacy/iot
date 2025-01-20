@@ -98,8 +98,8 @@ public class PlantRestController {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode root = objectMapper.readTree(jsonBody);
-            dataType = root.path("metrics").get(0).path("name").asText();
-            value = root.path("metrics").get(0).path("value").asText();
+            dataType = root.path("name").asText();
+            value = root.path("value").asText();
         } catch (Exception e) {
             e.printStackTrace(System.out);
         }
