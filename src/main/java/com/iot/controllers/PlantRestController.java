@@ -85,27 +85,37 @@ public class PlantRestController {
         plantService.delete(plantId);
     }
 
+//    @PutMapping("/stats")
+//    public void updatePlantStats(@RequestBody String jsonBody) {
+//        Optional<PlantFullInfoDto> plant = plantService.findPlantByCurrentPlantIdOrFirst();
+//        Long plantId = plant.get().getId();
+//
+//        String dataType = null;
+//        String value = null;
+//
+//        log.info("This is jsonBody: {}", jsonBody);
+//
+//        try {
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            JsonNode root = objectMapper.readTree(jsonBody);
+//            dataType = root.path("name").asText();
+//            value = root.path("value").asText();
+//        } catch (Exception e) {
+//            e.printStackTrace(System.out);
+//        }
+//
+//        if (dataType != null || value != null) {
+//            plantService.updatePlantStats(plantId, dataType, Float.parseFloat(value));
+//        }
+//    }
+
     @PutMapping("/stats")
-    public void updatePlantStats(@RequestBody String jsonBody) {
+    public void updatePlantStats(@RequestBody PlantStatsDto statsDTO) {
         Optional<PlantFullInfoDto> plant = plantService.findPlantByCurrentPlantIdOrFirst();
         Long plantId = plant.get().getId();
 
-        String dataType = null;
-        String value = null;
-
-        log.info("This is jsonBody: {}", jsonBody);
-
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode root = objectMapper.readTree(jsonBody);
-            dataType = root.path("name").asText();
-            value = root.path("value").asText();
-        } catch (Exception e) {
-            e.printStackTrace(System.out);
-        }
-
-        if (dataType != null || value != null) {
-            plantService.updatePlantStats(plantId, dataType, Float.parseFloat(value));
-        }
+        log.info("Received stats update: {}", statsDTO);
+        plantService.updatePlantStats(plantId, statsDTO);
     }
+
 }

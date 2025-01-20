@@ -16,6 +16,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -82,19 +83,37 @@ public class PlantService {
         return plantRepository.findIdByName(name);
     }
 
-    public void updatePlantStats(Long plantId, String type, float data) {
-        Plant plant = plantRepository.findById(plantId).orElseThrow(() -> new PlantsException("Cannot update plant with id " + plantId));
-        log.info("Type of data: {}", type);
-        switch (type) {
-            case "temperature" -> plant.setTemperature(data);
-            case "humidity_soil" -> plant.setHumiditySoil(data);
-            case "humidity_air" -> plant.setHumidityAir(data);
-            default -> plant.setLight(data);
-        }
+//    public void updatePlantStats(Long plantId, String type, float data) {
+//        Plant plant = plantRepository.findById(plantId).orElseThrow(() -> new PlantsException("Cannot update plant with id " + plantId));
+//        log.info("Type of data: {}", type);
+//        switch (type) {
+//            case "temperature" -> plant.setTemperature(data);
+//            case "humidity_soil" -> plant.setHumiditySoil(data);
+//            case "humidity_air" -> plant.setHumidityAir(data);
+//            default -> plant.setLight(data);
+//        }
+//        try {
+//            plantRepository.save(plant);
+//        } catch (Exception e) {
+//            throw new PlantsException("Cannot save plant " + e);
+//        }
+//    }
+
+    @Transactional
+    public void updatePlantStats(Long plantId, PlantStatsDto statsDTO) {
+        Plant plant = plantRepository.findById(plantId)
+                .orElseThrow(() -> new PlantsException("Cannot update plant with id " + plantId));
+
         try {
+            plant.setTemperature(statsDTO.getTemperature());
+            plant.setHumidityAir(statsDTO.getHumidityAir());
+            plant.setHumiditySoil(statsDTO.getHumiditySoil());
+            plant.setLight(statsDTO.getLight());
+
             plantRepository.save(plant);
+            log.info("Successfully updated plant stats for plant with id: {}", plantId);
         } catch (Exception e) {
-            throw new PlantsException("Cannot save plant " + e);
+            throw new PlantsException("Cannot save plant: " + e.getMessage());
         }
     }
 

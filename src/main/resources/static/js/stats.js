@@ -1,3 +1,7 @@
+let allCount = 0;
+let lightCount = 0;
+let humCount = 0;
+
 function updateStats(plantType) {
     const temp = parseFloat(document.querySelector('.temp-stats').textContent);
     const air = parseFloat(document.querySelector('.air-stats').textContent);
@@ -51,9 +55,11 @@ function checkPlantState() {
     let client = connectToMother({topic: topic});
 
     client.on('connect', () => {
-        const message = JSON.stringify({command: 'get_all_data'});
+        const message = JSON.stringify({command: 'get_all_data', counter: allCount});
         sendDataToMQTT(topic, message, client);
     });
+
+    allCount++;
 }
 
 async function getCurrentPlantInfo(plantName) {
@@ -162,42 +168,85 @@ async function getAllDataFromMother() {
 
     let client = connectToMother(topics);
 
+    const collectedData = {
+        temperature: null,
+        airHumidity: null,
+        soilHumidity: null,
+        light: null
+    };
+
     client.on('message', async (topic, message) => {
         console.log(`Received a message from topic ${topic}: ${message.toString()}`);
         const data = JSON.parse(message.toString());
 
-        try {
-            const response = await fetch('/api/plants/stats', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
-
-            if (response.ok) {
-                console.log('Plant updated successfully!');
-            }
-        } catch (error) {
-            console.error('Error updating plant:', error);
-        }
-
+        updateUI(topic, data, topics);
 
         switch (topic) {
             case topics.temperature:
-                document.querySelector(".temp-stats").textContent = `${data.value} °C`;
+                collectedData.temperature = data.value;
                 break;
             case topics.airHumidity:
-                document.querySelector(".air-stats").textContent = `${data.value} %`;
+                collectedData.airHumidity = data.value;
                 break;
             case topics.soilHumidity:
-                document.querySelector(".soil-stats").textContent = `${data.value} %`;
+                collectedData.soilHumidity = data.value;
                 break;
             case topics.light:
-                document.querySelector(".light-stats").textContent = `${data.value} %`;
-                document.querySelector(".progress").style.width = `${data.value}%`;
+                collectedData.light = data.value;
                 break;
         }
+
+        if (hasAllData(collectedData)) {
+            try {
+                const response = await fetch('/api/plants/stats', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        temperature: collectedData.temperature,
+                        humidityAir: collectedData.airHumidity,
+                        humiditySoil: collectedData.soilHumidity,
+                        light: collectedData.light
+                    }),
+                });
+
+                if (response.ok) {
+                    console.log('Plant updated successfully with all data!');
+                    resetCollectedData(collectedData);
+                }
+            } catch (error) {
+                console.error('Error updating plant:', error);
+            }
+        }
+    });
+}
+
+function updateUI(topic, data, topics) {
+    switch (topic) {
+        case topics.temperature:
+            document.querySelector(".temp-stats").textContent = `${data.value} °C`;
+            break;
+        case topics.airHumidity:
+            document.querySelector(".air-stats").textContent = `${data.value} %`;
+            break;
+        case topics.soilHumidity:
+            document.querySelector(".soil-stats").textContent = `${data.value} %`;
+            break;
+        case topics.light:
+            document.querySelector(".light-stats").textContent = `${data.value} %`;
+            document.querySelector(".progress").style.width = `${data.value}%`;
+            break;
+    }
+}
+
+function hasAllData(data) {
+    return Object.values(data).every(value => value !== null);
+}
+
+function resetCollectedData(data) {
+    Object.keys(data).forEach(key => {
+        data[key] = null;
     });
 }
 
@@ -243,9 +292,11 @@ function waterPlant() {
     let client = connectToMother({humidity: humidity});
 
     client.on('connect', () => {
-        const message = JSON.stringify({command: 'turn_on', value: true});
+        const message = JSON.stringify({command: 'turn_on', value: true, counter: humCount});
         sendDataToMQTT(humidity, message, client);
     });
+
+    humCount++;
 }
 
 function sendDataToMQTT(topic, message, client) {
@@ -264,7 +315,9 @@ function lightUp() {
     let client = connectToMother({light: light});
 
     client.on('connect', () => {
-        const message = JSON.stringify({command: 'light_on', value: true});
+        const message = JSON.stringify({command: 'light_on', value: true, counter: lightCount});
         sendDataToMQTT(light, message, client);
     });
+
+    lightCount++;
 }
