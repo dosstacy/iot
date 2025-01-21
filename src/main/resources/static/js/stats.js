@@ -298,7 +298,7 @@ function waterPlant() {
 }
 
 function sendDataToMQTT(topic, message, client) {
-    client.publish(topic, message, { retain: true }, (err) => {
+    client.publish(topic, message, (err) => {
         if (err) {
             console.error('Error while publishing:', err);
         } else {

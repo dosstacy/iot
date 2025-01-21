@@ -65,4 +65,6 @@ public class UserController {
     public String stats() {
         return "stats";
     }
+
+
 }
