@@ -1,7 +1,7 @@
 # IoT Plant Monitoring System
 
 <div align="center">
-  <img src="registration.png" width="150" />
+  <img src="registration.png"/>
 </div>
 
 ## Overview
