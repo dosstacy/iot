@@ -162,7 +162,7 @@ iot/
 ### User Registration & Login
 
 <div align="center">
-  <img src="login.jpg" width="400" />
+  <img src="login.jpg" />
 </div>
 
 1. Navigate to the application homepage
@@ -173,7 +173,7 @@ iot/
 ### Adding Plants
 
 <div align="center">
-  <img src="plantTypes.jpg" width="400" />
+  <img src="plantTypes.jpg" />
 </div>
 
 1. Click "Add Plant" on the dashboard
@@ -184,7 +184,7 @@ iot/
 ### Monitoring & Statistics
 
 <div align="center">
-  <img src="main.jpg" width="400" />
+  <img src="main.jpg" />
 </div>
 
 - View real-time sensor readings for each plant
